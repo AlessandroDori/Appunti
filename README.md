@@ -9,6 +9,3 @@ Il repository è organizzato in cartelle, ciascuna delle quali contiene gli appu
 - **Riassunti**: Sintesi degli argomenti più importanti.
 - **Esercizi svolti**: Soluzioni di esercizi e problemi trattati in aula o per preparazione autonoma.
 - **Progetti e Codice**: Progetti di programmazione e codice sorgente.
-
-### Struttura delle cartelle
-
