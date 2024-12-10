@@ -4783,4 +4783,197 @@ $\Rightarrow$ si può fare meglio con un \textit{approximation ratio} costante.
     \end{itemize}
 \end{itemize}
 
+\newpage
+\section{Complessità di Spazio}
+In questo capitolo valutiamo la complessità dei problemi computazionali in termini della quantità di spazio, o memoria, che essi richiedono.
+Tempo e spazio sono due dei fattori più importanti quando ricerchiamo soluzioni pratiche per numerosi problemi computazionali.
+La complessità di spazio condivide molte caratteristiche della complessità di tempo e rappresenta un modo ulteriore per classificare i problemi in accordo alla propria difficoltà computazionale.
+
+Come per la complessità di tempo, abbiamo necessità di selezionare un modello per misurare lo spazio utilizzato da un algoritmo.
+Continuiamo a servirci del modello della macchina di Turing per la stessa ragione per cui l'abbiamo usato per misurare il tempo.
+Le macchine di Turing sono matematicamente semplici ed abbastanza vicine ai calcolatori reali da fornire risultati significativi.
+
+\begin{tcolorbox}[colback=yellow!5!white, colframe=yellow!50!black, title=\textbf{Definizione 8.1}]
+    Sia $M$ una macchina di Turing deterministica che si arresta
+    su tutti gli input. 
+    La \textit{\textbf{complessità di spazio}} di $M$ è la funzione $f: \mathbb{N} \rightarrow \mathbb{N}$, dove  $f(n)$ è il numero massimo di celle del nastro che $M$ scandisce su ogni input di lunghezza $n$.
+    Se la complessità di spazio di $M$ è $f(n)$, diciamo anche che $M$ computa in spazio $f(n)$.
+    Se $M$ è una macchina di Turing non deterministica dove tutte le diramazioni si arrestano su tutti gli input, definiamo la sua complessità di spazio $f(n)$ come il massimo numero di celle del nastro che $M$ scandisce su qualsiasi diramazione della sua computazione per ogni input di lunghezza $n$.
+\end{tcolorbox}
+
+Tipicamente stimiamo la complessità di spazio delle macchine di Turing attraverso la notazione asintotica.
+
+\paragraph*{Definizione 8.2}
+\label{definizione-8.2}
+\vspace{1em}
+\text{}
+\newline
+Sia $f : \mathbb{N} \rightarrow \mathbb{R}^+$ una funzione.
+\[
+\text{SPACE}(f(n)) = \{L \mid L \text{ è un linguaggio deciso da una macchina di Turing deterministica con spazio } O(f(n))\}.
+\]
+\[
+\text{NSPACE}(f(n)) = \{L \mid L \text{ è un linguaggio deciso da una macchina di Turing non deterministica con spazio } O(f(n))\}.
+\]
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Immagini/111.png}
+    \includegraphics[width=0.3\textwidth]{Immagini/112.png}
+    \label{fig:space-complexity}
+\end{figure}
+
+\newpage
+\subsection{Teorema di Savitch (e mo so cazzi pt.2)}
+Il teorema di Savitch è uno dei primi risultati riguardanti la complessità di spazio. 
+Mostra che le macchine deterministiche possono simulare le macchine non deterministiche usando una quantità di spazio sorprendentemente molto piccola.
+Per la complessità di tempo, tale simulazione sembra richiedere un incremento esponenziale in tempo.
+Per la complessità di spazio, il teorema di Savitch mostra che ogni TM non deterministica che usa spazio $f(n)$ può essere convertita in una TM deterministica che usa soltanto spazio $f^2(n)$.
+
+\paragraph{Teorema 8.5(30L)}
+\label{teorema-8.5}
+\vspace{1em}
+\text{}
+\newline
+\begin{tcolorbox}[colback=white, colframe=black!50!red, title=\textbf{Teorema di Savitch}]
+    Per ogni funzione $f: \mathbb{N} \rightarrow \mathbb{R}^+$ dove $f(n)$, dove $f(n) \geq n$,
+    \[
+    \text{NSPACE}(f(n)) \subseteq \text{SPACE}(f^2(n)).
+    \]
+\end{tcolorbox}
+
+\textbf{IDEA:}
+Dobbiamo simulare deterministicamente una NTM con complessità di spazio $f(n)$.
+Un approccio ingenuo consiste nel procedere tentando tutte le diramazioni seguite dalla computazione della NTM, una per una. 
+La simulazione deve tener traccia di quale diramazione la macchina sta tentando al momento per poter passare alla successiva.
+Ma una diramazione che usa spazio $f(n)$ può richiedere $2^{O(f(n))}$ passi e ciascun passo potrebbe consistere in una scelta non deterministica.
+L'esplorazione sequenziale delle diramazioni richiederebbe la memorizzazione di tutte le scelte effettuate su una particolare diramazione per poter individuare la diramazione successiva.
+Pertanto, questo approccio può usare spazio $2^{O(f(n))}$, eccedendo il
+nostro obiettivo di usare spazio $O(f^2(n))$.
+
+Invece, usiamo un approccio diverso, considerando il problema più generale che segue. 
+Date due configurazioni della NTM, $c_1$ e $c_2$, e un numero $t$, verifichiamo se la NTM può transire da $c_1$ a $c_2$ in al più $t$ passi, usando soltanto spazio $f(n)$.
+Chiamiamo questo problema il \textit{\textbf{problema della resa}}.
+Risolvendo il problema della resa, dove $c_1$, è la configurazione iniziale, $c_2$ è la configurazione finale, e $t$ è il numero massimo di passi che la macchina non deterministica può effettuare, possiamo stabilire se la macchina accetta il proprio input.
+
+A tal fine forniamo un algoritmo ricorsivo deterministico che risolve il problema della resa.
+L'algoritmo opera cercando una configurazione intermedia $c_m$: e verificando ricorsivamente se 
+(1) $c_1$ può portare a $c_m$ in al
+più $t/2$ passi, e 
+(2) se $c_m$ può portare a $c_2$ in al più $t/2$ passi.
+La riutilizzazione dello spazio per ognuno dei due test ricorsivi permette un risparmio di spazio significativo.
+
+Questo algoritmo richiede spazio per memorizzare le chiamate ricorsive. 
+Ciascun livello della ricorsione usa spazio $O(f(n))$ per memorizzare una configurazione.
+La profondità della ricorsione è $\log t$, dove $t$ è il tempo massimo che la macchina non deterministica può usare su ogni diramazione. 
+Risulta $t = 2^{O(f(n))}$, quindi $\log t = O(f(n))$.
+Pertanto la simulazione deterministica usa spazio $O(f^2(n))$.
+
+\text{}
+\newline
+\textbf{DIMOSTRAZIONE:}
+Sia $N$ una NTM che decide il linguaggio $A$ in spazio $f(n)$.
+Costruiamo una TM deterministica $M$ che decide $A$.
+La macchina $M$ utilizza la procedura $CANYIELD$, che verifica se una delle configurazioni di $N$ può darne un'altra entro uno specificato numero di passi.
+Questa procedura risolve il problema della resa descritto nell'idea della prova.
+
+Sia $w$ una stringa di input per $N$.
+Per le configurazioni $c_1$ e $c_2$ di $N$, e l'intero $t$, $CANYIELD(c_1, c_2, t)$ da in output \textit{accetta} se $N$ può passare dalla configurazione $c_1$ alla configurazione $c_2$ in $t$ o meno passi attraverso un qualche cammino non deterministico.
+Altrimenti, $CANYIELD$ da in output \textit{rifiuta}.
+Per convenienza, assimiamo che $t$ sia una potenza di 2.
+
+\text{}
+\newline
+$CANYIELD = $ "Su input $c_1, c_2, t$:
+\begin{enumerate}
+    \item Se $t = 1$, allora verifica direttamente se $c_1 = c_2$ o se $c_1$ può passare a $c_2$ in un passo, in accordo alle regole di transizione di $N$. \textit{Accetta} se uno dei due test ha successo; altrimenti, \textit{rifiuta}.
+    \item Se $t > 1$, allora per ogni configurazione $c_m$ di $N$ usando spazio $f(n)$:
+    \item $\quad$ Esegui $CANYIELD(c_1, c_m, t/2)$.
+    \item $\quad$ Esegui $CANYIELD(c_m, c_2, t/2)$.
+    \item $\quad$ Se i passi 3 e 4 somo entrambi accettanti, allora \textit{accetta}.
+    \item Se non ha ancora accettato, \textit{rifiuta}."
+\end{enumerate}
+
+Ora definiamo $M$ per simulare $N$ come segue.
+Prima modifichiamo $N$ in modo tale che, quando accetta, cancella il proprio nastro e muove la testina sulla cella più a sinistra - entrando con ciò in una configurazione detta $c_{accept}$. 
+Denotiamo con $c_{start}$ la configurazione iniziale di $N$ su $w$.
+Selezioniamo una costante $d$ in modo tale che $N$ abbia al più $2^{df(n)}$ configurazioni usando un nastro di $f(n)$ celle, dove $n$ è la lunghezza di $w$.
+Allora sappiamo che $2^{df(n)}$ fornisce un limite superiore al tempo di esecuzione di ogni diramazione di $N$ su $w$.
+    
+\text{}
+\newline
+$M = $ "Su input $w$:
+\begin{enumerate}
+    \item Fornisci in output il risultato di $CANYIELD(c_{start}, c_{accept}, 2^{df(n)})$."
+\end{enumerate}
+
+L'algoritmo $CANYIELD$ ovviamente risolve il problema della resa e, di conseguenza, $M$ simula correttamente $N$.
+Dobbiamo analizzarne l'esecuzione per verificare che $M$ lavora in spazio $O(f^2(n))$.
+
+Ogni qualvolta $CANYIELD$ invoca se stessa ricorsivamente, memorizza il numero della fase corrente e i valori di $c_1, c_2$, e $t$ in una pila, in modo tale che questi valori possano essere recuperati dalla chiamata ricorsiva.
+Ciascun livello della ricorsione usa perciò uno spazio aggiuntivo pari a $O(f(n))$. 
+Inoltre, ciascun livello della ricorsione divide la taglia di $t$ a metà.
+Inizialmente $t$ è uguale a $2^{df(n)}$, e quindi la profondità della ricorsione è $O (\log 2^{df(n)})$ ovvero $O(f(n))$. 
+Pertanto, lo spazio totale usato è $O(f^2(n))$, come asserito.
+Una difficoltà tecnica sorge in questo argomento perché l'algoritmo $M$ deve conoscere il valore di $f(n)$ quando invoca $CANYIELD$.
+Possiamo gestire questa difficoltà modificando $M$ in modo tale che tenti con $f(n) = 1, 2, 3, \ldots$ .
+Per ciascun valore $f(n) = i$, l'algoritmo modificato usa $CANYIELD$ per stabilire se la configurazione di accettazione è raggiungibile.
+In aggiunta, l'algoritmo usa $CANYIELD$ per stabilire se $N$ usa almeno spazio $i + 1$ verificando se $N$ può raggiungere qualcuna delle configurazioni di lunghezza $i + 1$ dalla configurazione iniziale.
+
+Se la configurazione finale è raggiungibile, $M$ accetta; 
+se nessuna configurazione di lunghezza $i + 1$ è raggiungibile, $M$ rifiuta; 
+e altrimenti, $M$ continua con $f(n) = i + 1$. 
+(Avremmo potuto gestire questa difficoltà in
+un altro modo, assumendo che $M$ possa calcolare $f(n)$ in spazio $O(f(n))$,
+ma poi avremmo dovuto aggiungere questa assunzione all'enunciato del teorema.)
+
+\subsection{LA CLASSE PSPACE}
+In analogia con la classe P, definiamo la classe PSPACE per la complessità di spazio.
+
+\paragraph{Definizione 8.6}
+\label{definizione-8.6}
+\vspace{1em}
+\text{}
+\newline
+\begin{tcolorbox}[colback=white, colframe=black!50!red, title=\textbf{Definizione}]
+    \textbf{\textit{PSPACE}} è la classe dei linguaggi che sono decidibili in spazio polinomiale con una macchina di Turing deterministica.
+    \newline
+    In altre parole,
+    \[
+    \textit{PSPACE} = \bigcup_{k} \textit{SPACE}(n^k).
+    \]
+\end{tcolorbox}
+
+Definiamo NPSPACE, la controparte non deterministica di PSPACE, in termini delle classi NSPACE.
+Tuttavia, in virtù del teorema di Savitch, PSPACE = NPSPACE, perché il quadrato di un polinomio è ancora un polinomio.
+
+Negli esempi 8.3 e 8.4, abbiamo mostrato che $SAT$ è contenuto in SPACE$(n)$ e che $ALL_NFA$ è contenuto in coNSPACE($n$) e, quindi, per il teorema di Savitch, in SPACE($n^2$), perché le classi di complessità di spazio deterministiche sono chiuse rispetto al complemento.
+Pertanto, entrambi i linguaggi sono in PSPACE.
+
+Esaminiamo ora la relazione di PSPACE con P ed NP.
+Osserviamo che P $\subseteq$ PSPACE, perchè una macchina che esegue velocemente non può usare una quantità di spazio grande.
+Precisamente, per $t(n) \geq n$, qualsiasi macchina che opera in tempo $t(n)$ può usare al più spazio $t(n)$, perchè una macchina può esplorare al più una nuova cella ad ogni passo della propria esecuzione.
+Similmente, NP $\subseteq$ NPSPACE e, pertanto, NP $\subseteq$ PSPACE.
+
+Viceversa, possiamo limitare la complessità di tempo di una macchina di Turing in termini della dua complessità di spazio.
+Per $f(n) \geq n$, una TM che usa spazio $f(n)$ può avere al più $2^{O(f(n))}$ configurazioni differenti, attraverso una semplice generalizzazione della priva del \hyperref[lemma-5.8]{\textcolor{blue}{Lemma 5.8}}.
+Una computazione di una TM che si arresta non può ripetere una configurazione.
+Pertanto, una TM che usa spazio $f(n)$ deve computare in tempo $f(n)2^{O(f(n))}$, quindi PSPACE $\subseteq$ EXPTIME = $\bigcup_{k} \text{TIME}(2^{n^k})$.
+
+Riassumiamo le nostre conoscenze circa le relazioni tra le classi di complessità definite fino ad ora nella serie di inclusioni
+\[
+\text{P} \subseteq \text{NP} \subseteq \text{PSPACE} = \text{NPSPACE} \subseteq \text{EXPTIME}.
+\]
+Non sappiamo se una qualsiasi di queste inclusioni è in realtà un'uguaglianza.
+Qualcuno potrebbe trovare una simulazione simile a quella usata nel teorema di Savitch che fonde alcune di queste classi nella stessa classe.
+In realtà, molti ricercatori ritengono che tutte le inclusioni siano proprie.
+Il diagramma seguente raffigura le relazioni tra queste classi, assumendo che siano tutte differenti.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{Immagini/113.png}
+    \label{fig:relazioni-classi-complessita}
+\end{figure}
+
+
 \end{document}
