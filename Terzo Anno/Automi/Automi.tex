@@ -387,8 +387,8 @@ Costruiamo $N = (Q, \Sigma, \delta, q_0, F)$ per riconoscere $A_1 \cdot A_2$.
     \end{cases}
     \]
 \end{enumerate}
-\vspace{4em}
 
+\newpage
 \paragraph{Teorema 1.49(orale)}
 \text{  }
 \begin{tcolorbox}[colback=orange!10!white, colframe=orange!50!black, title=Teorema 1.49 (orale)]
@@ -397,7 +397,7 @@ La classe dei linguaggi regolari è chiusa rispetto all'operazione star.
 
 \textbf{IDEA:}
 Abbiamo un linguaggio regolare $A_{1}$ e vogliamo provare che anche $A^{*}_{1}$ è regolare. Prendiamo un NFA $N_{1}$ per $A_{1}$ e lo modifichiamo per riconoscere $A^{*}_{1}$. L'NFA $N$ risultante accetterà il suo input quando esso può essere diviso in varie parti ed $N_{1}$ accetta ogni parte.
-Possiamo costruire $N$ come $N_{1}$ con $\varepsilon$-archi supplementari che dagli stati accettanti ritornano allo stato iniziale. In questo modo, quando l'elaborazione giunge alla fine di una parte che $N_{1}$ accetta, la macchina $N$ ha a scelta di tornare indietro allo stato iniziale per provare a leggere un'altra perte che $N_{1}$ accetta. Inoltre,  dobbiamo modificare $N$ in modo che accetti $\varepsilon$, che è sempre un elemento di $A^{*}_{1}$. L'idea è di aggiungere un nuovo stato iniziale, che è anche uno stato accettante, e che ha un $\varepsilon$-arco entrante nel vecchio stato iniziale.
+Possiamo costruire $N$ come $N_{1}$ con $\varepsilon$-archi supplementari che dagli stati accettanti ritornano allo stato iniziale. In questo modo, quando l'elaborazione giunge alla fine di una parte che $N_{1}$ accetta, la macchina $N$ ha la scelta di tornare indietro allo stato iniziale per provare a leggere un'altra parte che $N_{1}$ accetta. Inoltre,  dobbiamo modificare $N$ in modo che accetti $\varepsilon$, che è sempre un elemento di $A^{*}_{1}$. L'idea è di aggiungere un nuovo stato iniziale, che è anche uno stato accettante, e che ha un $\varepsilon$-arco entrante nel vecchio stato iniziale.
 \vspace{1em}
 
 \begin{figure}[H]
@@ -1129,7 +1129,7 @@ Allora $P$ accetta se questa stringa è identica alla stringa che ha ricevuto in
 
 Implementare questa strategia su un PDA richede un'idea supplementare.
 Dobbiamo capire come il PDA immagazzina le stringhe intermedie quando passa dall'una all'altra. 
-Usare semplicemente la pila per immagazzinare ciuscna stringa intermedia è allettante. 
+Usare semplicemente la pila per immagazzinare ciascuna stringa intermedia è allettante. 
 Tuttavia non funziona del tutto, poichè il PDA ha bisogno di trovare le variabili nelle stringhe intermedie e fare sostituzioni. 
 Il PDA può accedere solo al simbolo sulla cima della pila e questo potrebbe essere un simbolo terminale e non una variabile. 
 Il modo per aggirare questo problema è mantenere solo parte della stringa intermedia sulla pila: i simboli che iniziano con la prima variabile nella stringa intermedia. 
@@ -1198,7 +1198,7 @@ Poniamo $\delta(q_{loop},\varepsilon,A) = \{(q_{loop},w) \mid \text{dove } A \ri
 In secondo luogo, trattiamo il caso (b) in cui la cima della pila contiene un terminale.
 Poniamo $\delta(q_{loop},a,a) = \{(q_{loop},\varepsilon)\}$.
 
-Infine, trattiamo il caso (c) im cui il marcatore scelto per indicare la pila vuota \textdollar \text{ }è sulla cima della pila.
+Infine, trattiamo il caso (c) in cui il marcatore scelto per indicare la pila vuota \textdollar \text{ }è sulla cima della pila.
 Poniamo $\delta(q_{loop},\varepsilon,\textdollar) = \{(q_{accept},\varepsilon)\}$.
 
 Il diagramma di stato è mostrato nella figura seguente.
