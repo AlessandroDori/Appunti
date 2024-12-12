@@ -13,6 +13,8 @@
 \usepackage{tikz}
 \usepackage{tocloft}
 \usepackage[italian]{babel}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
 
 \setcounter{tocdepth}{4} % Mostra i paragrafi nell'indice
 
@@ -285,11 +287,17 @@ Un linguaggio è regolare se e solo se qualche automa finito non deterministico 
 \end{figure}
 
 \paragraph{Chiusura rispetto alle operazioni regolari}
-Il nostro scopo è provare che l'unione, la concatenazione e lo star di linguaggi regolari sono ancora regolari. L'uso del non determinismo rende queste prove molto più semplici. Innanzitutto consideriamo la chiusura rispetto all'unione.
+\vspace{1em}
+\text{}
+\newline
+Il nostro scopo è provare che l'unione, la concatenazione e lo star di linguaggi regolari sono ancora regolari. L'uso del non determinismo rende queste prove molto più semplici.
+Innanzitutto consideriamo la chiusura rispetto all'unione.
 
-La classe dei linguaggi regolari è chiusa rispetto all'operazione di unione.
 \paragraph{Teorema 1.45(orale)}
-\text{  }
+\label{teorema-1.45}
+\vspace{1em}
+\text{}
+\newline
 \begin{tcolorbox}[colback=orange!10!white, colframe=orange!50!black, title=Teorema 1.45 (orale)]
 La classe dei linguaggi regolari è chiusa rispetto all'operazione di unione.
 \end{tcolorbox}
@@ -334,7 +342,10 @@ Costruiamo $N = (Q, \Sigma, \delta, q_0, F)$ per riconoscere $A_1 \cup A_2$.
 \end{enumerate}
 
 \paragraph{Teorema 1.47(orale)}
-\text{  }
+\label{teorema-1.47}
+\vspace{1em}
+\text{}
+\newline
 \begin{tcolorbox}[colback=green!10!white, colframe=green!50!black, title=Teorema 1.47 (orale)]
     La  classe dei linguaggi regolari è chiusa rispetto all'operazione di concatenazione.
 \end{tcolorbox}
@@ -452,22 +463,23 @@ $$ Essa inizia con il linguaggio $(0 \cup 1)$ a cui applica l'operatore $*$. Il 
     \begin{enumerate}
         \item $a$ per qualche $a$ nell'alfabeto $\Sigma$,
         \item $\varepsilon,$
-        \item $0,$
+        \item $\emptyset,$
         \item $(R_{1}\cup R_{2}),$ dove $R_{1}$ ed $R_{2}$ sono espressioni regolari,
         \item $(R_{1}\circ R_{2}),$ dove $R_{1}$ ed $R_{2}$ sono espressioni regolari, o
         \item $(R^*_{1}),$ dove $R_{1}$ è un'espressione regolare.
     \end{enumerate}
 
-    Nei punti 1 e 2, le espressioni regolari $a$ e $\varepsilon$ rappresentano i linguaggi $\{a\}$ e $\{\varepsilon\},$ rispettivamente. Nel punto 3, l'espressione regolare $0$ rappresenta il linguaggio vuoto. Nei punti 4, 5, e 6, le espressioni rappresentano i linguaggi ottenuti prendendo l'unione o la concatenazione dei linguaggi $R_{1}$ ed $R_{2}$, o lo star del linguaggio $R_1$, rispettivamente.
+    Nei punti 1 e 2, le espressioni regolari $a$ e $\varepsilon$ rappresentano i linguaggi $\{a\}$ e $\{\varepsilon\},$ rispettivamente. Nel punto 3, l'espressione regolare $\emptyset$ rappresenta il linguaggio vuoto. Nei punti 4, 5, e 6, le espressioni rappresentano i linguaggi ottenuti prendendo l'unione o la concatenazione dei linguaggi $R_{1}$ ed $R_{2}$, o lo star del linguaggio $R_1$, rispettivamente.
 \end{tcolorbox}
 
 \begin{tcolorbox}[colback=red!10!white, colframe=red!50!black, title=ATTENZIONE!]
-    Non confondere le espressioni regolari $\varepsilon \text{ e } 0.$ L'espressione $\varepsilon$ rappresenta il linguaggio che contiene una sola stringa - ossia, la stringa vuota - mentre $0$ rappresenta il linguaggio che non contiene alcuna stringa.
+    Non confondere le espressioni regolari $\varepsilon \text{ e } \emptyset.$ L'espressione $\varepsilon$ rappresenta il linguaggio che contiene una sola stringa - ossia, la stringa vuota - mentre $\emptyset$ rappresenta il linguaggio che non contiene alcuna stringa.
 \end{tcolorbox}
 
 Apparentemente, sembra che stiamo definendo la nozione di espressione regolare in termini di sé stessa. Se fosse vero, avremmo una definizione circolare, che non sarebbe valida. Comunque, $R_{1}$, ed $R_{2}$ sono sempre più piccole di $R$. Quindi in realtà stiamo definendo le espressioni regolari in termini di espressioni regolari più piccole, evitando in tal modo la circolarità. Una definizione di questo tipo è chiamata una \textcolor{myred}{definizione induttiva}.
 \vspace{1em}
-
+\text{}
+\newline
 Le parentesi in un'espressione possono essere omesse. Se lo sono, la valutazione è fatta nell'ordine della precedenza: star, poi concatenazione, poi unione.
 Per comodità, usiamo $R^{+}$ come abbreviazione per $RR^{*}$. In altre parole, mentre $R^{*}$ contiene tutte le stringhe che sono concatenazione di 0 o più stringhe di $R$, il linguaggio $R^{+}$ contiene tutte le stringhe che sono concatenazione di 1 o più stringhe di $R$. Quindi $R^{+}\cup \varepsilon = R^{*}$. Inoltre, denotiamo con $R^{k}$ l'abbreviazione della concatenazione di $k$ copie di $R$ insieme.
 
@@ -481,21 +493,23 @@ che descrive, denotiamo con $L(R)$ il linguaggio di $R$.
     \label{fig:regular_expression_example1}
 \end{figure}
 \vspace{1em}
-
-$R \cup 0 = R.$
+\text{}
+\newline
+$R \cup \emptyset = R.$
 Aggiungere il linguaggio vuoto a un qualsiasi altro linguaggio non lo cambia.
-
+\newline
 $R\circ \varepsilon = R$.
 Concatenare la stringa vuota a una qualsiasi stringa non la cambia.
 
-Tuttavia, scambiare $0$ e $\varepsilon$ nelle precedenti identità può far si che le uguaglianze non siano vere.
-- $R \cup \varepsilon$ può non essere uguale a R.
-- Per esempio, se $R = 0,$ allora $L(R) = \{0\}$, ma $L(R\cup \varepsilon) = \{0, \varepsilon\}$.
-	$\text{ }$
-- $R \circ 0$ può non essere uguale a $R$.
-- Per esempio, se $R = 0$, allora $L(R) = \{0\}$ ma $L(R\circ 0) = 0.$
+Tuttavia, scambiare $\emptyset$ e $\varepsilon$ nelle precedenti identità può far si che le uguaglianze non siano vere.
+\begin{itemize}
+    \item $R \cup \varepsilon$ può non essere uguale a $R$.
+    \item $\quad$ Per esempio, se $R = 0,$ allora $L(R) = \{0\}$, ma $L(R \cup \varepsilon) = \{0, \varepsilon\}$.
+    \item $R \circ \emptyset$ può non essere uguale a $R$.
+    \item $\quad$ Per esempio, se $R = 0$, allora $L(R) = \{0\}$ ma $L(R \circ \emptyset) = \emptyset$.
+\end{itemize}
 
-Gli oggetti elemenetari in un linguaggio di programmazione, chiamati $token$, come i nomi delle variabili e le costanti, possono essere descritti con espressioni regolari. Per esempio, una costante numerica che può avere una parte decimale e/o un segno può essere descritta come un elemento del linguaggio
+Gli oggetti elementari in un linguaggio di programmazione, chiamati $token$, come i nomi delle variabili e le costanti, possono essere descritti con espressioni regolari. Per esempio, una costante numerica che può avere una parte decimale e/o un segno può essere descritta come un elemento del linguaggio
 
 $$(+ \cup - \cup \varepsilon)(D^{+}\cup D^{+}.D^{*}\cup D^{*}.D^{+})$$
 
@@ -516,6 +530,7 @@ Le espressioni regolari e gli automi finiti sono equivalenti rispetto alla loro 
 Questo teorema deve essere dimostrato in entrambe le direzioni. Noi enunciamo e proviamo ciascuna direzione in un lemma separato.
 
 \paragraph{Lemma 1.55(orale)}
+\label{lemma-1.55}
 \text{  }
 \begin{tcolorbox}[colback=orange!10!white, colframe=orange!50!black, title=Lemma 1.55 (orale)]
     Se un linguaggio è descritto da un'espressione regolare, allora esso è regolare.
@@ -537,21 +552,21 @@ Trasformiamo $R$ in un NFA $N$. Consideriamo i sei casi nella definizione di esp
         \end{figure}
         Nota che questa macchina soddisfa la definizione di NFA ma non quella di DFA perché ha qualche stato con nessun arco uscente per ogni possibile simbolo di input. Naturalmente, qui avremmo potuto presentare un DFA equivalente; ma un NFA è tutto quello di cui abbiamo bisogno per ora, ed è più facile da descrivere.
         
-        Formalmente, $N = (\{q_{1},q_{2}\},\Sigma,\delta,q_{1},\{q_{2}\})$, dove descriviamo $\delta$ dicendo che $\delta(q_{1},a) = \{q_2\}$ e $\delta(r,b) = 0 \text{ per }r\neq q_{1}$ o $b \neq a.$
+        Formalmente, $N = (\{q_{1},q_{2}\},\Sigma,\delta,q_{1},\{q_{2}\})$, dove descriviamo $\delta$ dicendo che $\delta(q_{1},a) = \{q_2\}$ e $\delta(r,b) = \emptyset \text{ per }r\neq q_{1}$ o $b \neq a.$
     \item $R = \varepsilon.$ Allora $L(R) = \{\varepsilon\}$ e il seguente NFA riconosce $L(R)$.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.3\textwidth]{Immagini/13.png}
         \label{fig:your_image1}
     \end{figure}
-    Formalmente, $N = (\{q_{1}\},\Sigma,\delta,q_{1},\{q_{1}\})$ dove $\delta(r,b) = 0$ per ogni $r$ e $b$.
-    \item $R = 0.$ Allora $L(R) = 0,$ e il seguente NFA riconosce $L(R)$.
+    Formalmente, $N = (\{q_{1}\},\Sigma,\delta,q_{1},\{q_{1}\})$ dove $\delta(r,b) = \emptyset$ per ogni $r$ e $b$.
+    \item $R = \emptyset.$ Allora $L(R) = \emptyset,$ e il seguente NFA riconosce $L(R)$.
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.3\textwidth]{Immagini/14.png}
         \label{fig:your_image}
     \end{figure}
-    Formalmente, $N = (\{q\},\sigma,\delta,q,0)$, dove $\delta(r,b) = 0 \text{ per ogni } r \text{ e } b.$
+    Formalmente, $N = (\{q\},\sigma,\delta,q,0)$, dove $\delta(r,b) = \emptyset \text{ per ogni } r \text{ e } b.$
     \item $R = R_{1}\cup R_{2}.$
     \item $R = R_{1}\circ R_{2}.$
     \item $R = R^{*}_{1}.$
@@ -578,7 +593,7 @@ Trasformiamo $R$ in un NFA $N$. Consideriamo i sei casi nella definizione di esp
 Dobbiamo mostrare che se un linguaggio $A$ è regolare, allora un'espressione regolare lo descrive. 
 Poiché $A$ è regolare, esso è accettato da un DFA. 
 Descriviamo una procedura per trasformare i DFA in espressioni regolari equivalenti. 
-Dividiamo questa procedura in due parti, usando un nuovo tipo di automa finito chiamato \textbf{automa finito non deterministico generalizzato},GNFA.
+Dividiamo questa procedura in due parti, usando un nuovo tipo di automa finito chiamato \textbf{automa finito non deterministico generalizzato}, GNFA.
 Prima mostiamo come trasformare un DFA in un GNFA e poi come trasformare un GNFA in un'espressione regolare.
 
 Gli automi finiti non deterministici generalizzati sono semplicemente automi finiti non deterministici nei quali gli archi delle transizioni possono
@@ -604,10 +619,13 @@ che soddisfi le seguenti condizioni.
 \end{itemize}
 
 Possiamo facilmente trasformare un DFA in un GNFA nella forma speciale.
-Aggiungiamo semplicemente un nuovo stato iniziale con un $\varepsilon$-arco che entra nel vecchio stato iniziale e un nuovo stato accettante con $\varepsilon$-archi entranti, provenienti dai vecchi stati accettanti. Se alcuni archi hanno più etichette (o se ci sono più archi che collegano gli stessi due stati nella stessa direzione), sostituiamo ognuno di essi con un solo arco la cui etichetta è l'unione delle precedenti etichette. Infine, aggiungiamo archi con etichetta $0$ tra stati che non hanno archi. Questo ultimo passo non cambierebbe il linguaggio riconosciuto perché una transizione etichettata con $0$ non può mai essere usata.
+Aggiungiamo semplicemente un nuovo stato iniziale con un $\varepsilon$-arco che entra nel vecchio stato iniziale e un nuovo stato accettante con $\varepsilon$-archi entranti, provenienti dai vecchi stati accettanti. 
+Se alcuni archi hanno più etichette (o se ci sono più archi che collegano gli stessi due stati nella stessa direzione), sostituiamo ognuno di essi con un solo arco la cui etichetta è l'unione delle precedenti etichette. 
+Infine, aggiungiamo archi con etichetta $\emptyset$ tra stati che non hanno archi. 
+Questo ultimo passo non cambierebbe il linguaggio riconosciuto perché una transizione etichettata con $\emptyset$ non può mai essere usata.
 Ora mostriamo come trasformare un GNFA in un'espressione regolare.
 Supponiamo che il GNFA abbia $k$ stati. Allora, poichè un GNFA deve avere uno stato iniziale e uno accettante ed essi devono essere diversi tra loro, sappiamo che $k \geq 2$. Se $k > 2$, costruiamo un GNFA equivalente con $k-1$ stati. Questo passo può essere ripetuto sul nuovo GNFA fino a quando esso è ridotto a 2 stati. Se $k = 2$ il GNFA ha un solo arco che va dallo stato iniziale allo stato accettante. L'etichetta di questo arco è l'espressione regolare equivalente.
-Per esempio, le fasi per trasformareun DFA con 3 stati in un'espressione regolare equivalente sono mostrati nella figura seguente.
+Per esempio, le fasi per trasformare un DFA con 3 stati in un'espressione regolare equivalente sono mostrati nella figura seguente.
 
 \begin{figure}[H]
     \centering
@@ -623,7 +641,7 @@ Chiamiamo $q_{rip}$ lo stato rimosso.
 
 Dopo aver rimosso $q_{rip}$ modifichiamo la macchina cambiando le espressioni regolari che etichettano ciascuno dei restanti archi.
 Le nuove etichette controbilanciano l'assenza di $q_{rip}$ reintegrando le computazioni perse.
-La nuoca etichetta che va da uno stato $q_i$ a uno stato $q_j$ è un'espressione regolare che descrive tutte le stringhe che porterebbero la macchina da $q_i$ a $q_j$ o direttamente o tramite $q_{rip}$.
+La nuova etichetta che va da uno stato $q_i$ a uno stato $q_j$ è un'espressione regolare che descrive tutte le stringhe che porterebbero la macchina da $q_i$ a $q_j$ o direttamente o tramite $q_{rip}$.
 Illustriamo questa strategia nella seguente figura.
 
 \begin{figure}[H]
@@ -646,9 +664,9 @@ $$(R_1)(R_2)^* (R_3)\cup (R_4).$$
 Facciamo questa modifica per ogni arco che va da un qualsiasi stato $q_i$ a un qualsiasi stato $q_j$, includendo il caso un cui $q_i = q_j$.
 La nuova macchina riconosce il linguaggio di partenza.
 \vspace{1em}
-
+\text{}
+\newline
 \textbf{DIMOSTRAZIONE.}
-
 Formalizziamo questa idea.
 In primo luogo, per rendere più facile la prova, definiamo formalmente il nuovo tipo di automa introdotto.
 Un GNFA è simile a un automa finito non deterministico tranne che per la funzione di transizione, che ha la forma
@@ -691,7 +709,7 @@ $CONVERT(G):$
 \begin{enumerate}
     \item Sia $k$ il numero di stati di $G$.
     \item Se $k = 2$, allora $G$ deve consistere di uno stato iniziale, uno stato accettante, e un signolo arco che li collega ed è etichettato con un'espressione regolare $R$. Restituisce l'espressione $R$.
-    \item Se $k > 2$, scegliamo un qualsiasi stato $q_{rip} \in Q$ diverso da $q_{start}$ e $q_{accept}$ e sia $G^{'}$ il GNFA $(Q^{'},\Sigma,\delta^{'},q_{start},q_{accept})$, dove $$Q^{'} = Q - \{q_{rip}\},$$ e per ogni $q_i \in Q^{'} - \{q_{accept}\}$ e ogni $q_j \in Q^{'} - \{q_{start}\}$, poniamo $$ \delta^{'}(q_i,q_j) = (R_1)(R_2)^{*}(R_3) \cup (R_4),$$ dove $R_1 = \delta(q_i,q_{rip})$, $R_2 = \delta(q_{rip},q_{rip},)$ $R-3 = 1delta(q_{rip},q_j)$ ed $R_4 = \delta (q_i,q_j)$.
+    \item Se $k > 2$, scegliamo un qualsiasi stato $q_{rip} \in Q$ diverso da $q_{start}$ e $q_{accept}$ e sia $G^{'}$ il GNFA $(Q^{'},\Sigma,\delta^{'},q_{start},q_{accept})$, dove $$Q^{'} = Q - \{q_{rip}\},$$ e per ogni $q_i \in Q^{'} - \{q_{accept}\}$ e ogni $q_j \in Q^{'} - \{q_{start}\}$, poniamo $$ \delta^{'}(q_i,q_j) = (R_1)(R_2)^{*}(R_3) \cup (R_4),$$ dove $R_1 = \delta(q_i,q_{rip})$, $R_2 = \delta(q_{rip},q_{rip},)$ $R_3 = \delta(q_{rip},q_j)$ ed $R_4 = \delta (q_i,q_j)$.
     \item Calcola $CONVERT(G^{'})$ e restituisce questo valore. 
 \end{enumerate}
 
@@ -739,12 +757,14 @@ Sorprendentemente, $D$ è regolare ed è accettato dal seguente DFA:
 \end{figure}
 
 \paragraph{Il pumping lemma}
-\text{ }
-
+\vspace{1em}
+\text{}
+\newline
 Questo teorema afferma che tutti i linguaggi regolari hanno una proprietà speciale. Se noi possiamo mostrare che un linguaggio non ha questa proprietà, siamo sicuri che esso non è regolare. La proprietà afferma che tutte le stringhe nel linguaggio possono essere "replicate" se la loro lunghezza raggiunge almeno uno specifico valore speciale, chiamato la \textbf{lunghezza del pumping}. Questo significa che ogni tale stringa contiene una parte che può essere ripetuta un numero qualsiasi di volte ottenendo una stringa che appartiene ancora al linguaggio.
 
 \paragraph{Teorema 1.70(orale)}
-\text{  }
+\label{teorema-1.70}
+\text{}
 \begin{tcolorbox}[colback=green!10!white, colframe=green!50!black, title=Teorema 1.70]
     Se $A$ è un linguaggio regolare, allora esiste un numero $p$ (la lunghezza del pumping) tale che se $s$ è una qualsiasi stringa in $A$ di lunghezza almeno $p$, allora $s$ può essere divisa in tre parti, $s = xyz$, soddisfacenti le seguenti condizioni:
     \begin{enumerate}
@@ -764,6 +784,8 @@ Questo teorema afferma che tutti i linguaggi regolari hanno una proprietà speci
     \item Scritto più precisamente il pumping lemma è:
 \end{itemize}
 \vspace{1em}
+
+\href{https://chatgpt.com/share/6759c242-4ec8-8011-9b41-8664075f8a1a}{\textcolor{blue}{Link a chatgpt che lo spiega meglio.}}
 
 \textbf{PUMPING LEMMA:}
 $$
@@ -793,9 +815,9 @@ Utilizzo pratico (provare che $A$ non è regolare):
 \vspace{1em}
 
 \textbf{IDEA:}
-Sia $M = (Q,\Sigma,\delta,q_{1},F)$ un DFA che riconosce $A$. Assegnamo alla lunghezza del pumping $p$ il numero degli stati di $M$. Mostriamo che ogni stringa $s$ in $A$ di lunghezza almeno $p$ può essere divisa nelle tre parti $xyz$, soddisfacenti le nostre tre condizioni. Cosa accade se nessuna stringa in $A$ è di lunghezza almeno $p$? Allora il nostro compito è perfino più facile perchè il teorema diventa *banalmente* vero: ovviamente le tre condizioni valgono per tutte le stringhe di lunghezza almeno $p$ se non vi è alcuna di tali stringhe.
+Sia $M = (Q,\Sigma,\delta,q_{1},F)$ un DFA che riconosce $A$. Assegnamo alla lunghezza del pumping $p$ il numero degli stati di $M$. Mostriamo che ogni stringa $s$ in $A$ di lunghezza almeno $p$ può essere divisa nelle tre parti $xyz$, soddisfacenti le nostre tre condizioni. Cosa accade se nessuna stringa in $A$ è di lunghezza almeno $p$? Allora il nostro compito è perfino più facile perchè il teorema diventa \textbf{banalmente} vero: ovviamente le tre condizioni valgono per tutte le stringhe di lunghezza almeno $p$ se non vi è alcuna di tali stringhe.
 Se $s$ in $A$ ha lunghezza almeno $p$, consideriamo la sequenza di stati che $M$ attraversa nella computazione con input $s$. Inizia con lo stato iniziale $q_{1}$, poi va in $q_{3}$, poi per esempio in $q_{13}$. Se $s$ è in $A$, sappiamo che $M$ accetta $s$, quindi $q_{13}$ è uno stato accettante.
-Se supponiamo che $n$ sia la lunghezza di $s$, la sequenza di stati $q_{1},q_{3},q_{20},...,q_{13}$ ha lunghezza $n+1$. Poichè $n$ è almeno $p$ , sappiamo che $n+1$ è più grande di $p$, il numero di stati di $M$. Quindi, la sequenza deve contenere uno stato che si ripete (**principio della piccionaia**).
+Se supponiamo che $n$ sia la lunghezza di $s$, la sequenza di stati $q_{1},q_{3},q_{20},...,q_{13}$ ha lunghezza $n+1$. Poichè $n$ è almeno $p$ , sappiamo che $n+1$ è più grande di $p$, il numero di stati di $M$. Quindi, la sequenza deve contenere uno stato che si ripete (\textbf{principio della piccionaia}).
 La figura seguente mostra la stringa $s$ e la sequenza di stati che $M$ attraversa quando elabora $s$. Lo stato $q_{9}$ è quello che si ripete.
 
 \begin{figure}[H]
@@ -804,7 +826,7 @@ La figura seguente mostra la stringa $s$ e la sequenza di stati che $M$ attraver
     \label{fig:your_image}
 \end{figure}
 
-Ora dividiamo s nelle tre componenti $x,y$ e $z$. La componente $x$ è la
+Ora dividiamo $s$ nelle tre componenti $x,y$ e $z$. La componente $x$ è la
 parte di $s$ che compare prima di $q_{9}$, la componente $y$ è la parte tra le due
 occorrenze di $q_{9}$ e la componente $z$ è la parte restante di $s$, che viene dopo
 la seconda occorrenza di $q_{9}$. Quindi $x$ porta $M$ dallo stato $q_{1}$ a $q_{9}$, $y$ riporta
@@ -828,16 +850,15 @@ Sia $s = s_{1}s_{2}...s_{n}$ una stringa in $A$ di lunghezza $n$, dove $n \geq p
 \vspace{3em}
 
 Per usare il pumping lemma per provare che un linguaggio $B$ non è regolare, in primo luogo si assuma che $B$ sia regolare per ottenere una contraddizione. Poi si usi il pumping lemma per assicurare l'esistenza di una lunghezza del pumping $p$ tale che tutte le stringhe di lunghezza maggiore o uguale a $p$ in $B$ possano essere iterate. In seguito, si trovi una stringa $s$ in $B$ che ha lunghezza maggiore o uguale a $p$, ma che non può essere iterata. Infine, si dimostri che $s$ non può essere iterata considerando tutti i modi di dividere $s$ in $x$, $y$ e $z$ (prendendo in considerazione la condizione 3 del pumping lemma
-se è utile) e, per ogni tale divisione, trovando un valore $i$ tale che $xy^{i}z \notin B$. Questo passo finale spesso comporta il dover raggruppare i vari modi di dividere $s$ in diversi casi e l'analizzarli individualmente. L'esistenza di $s$ contraddirebbe il pumping lemma se $B$ fosse regolare. Quindi $B$ non può essere regolare. Trovare $s$ a volte richiede un po di ragionamento creativo. Potresti dover cercare tra diversi candidati per s prima di scoprirne uno che funzioni. Prova con elementi di $B$ che sembrano esibire l'essenza della non regolarità di $B$.
+se è utile) e, per ogni tale divisione, trovando un valore $i$ tale che $xy^{i}z \notin B$. Questo passo finale spesso comporta il dover raggruppare i vari modi di dividere $s$ in diversi casi e l'analizzarli individualmente. L'esistenza di $s$ contraddirebbe il pumping lemma se $B$ fosse regolare. Quindi $B$ non può essere regolare. Trovare $s$ a volte richiede un po' di ragionamento creativo. Potresti dover cercare tra diversi candidati per s prima di scoprirne uno che funzioni. Prova con elementi di $B$ che sembrano esibire l'essenza della non regolarità di $B$.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.3\textwidth]{Immagini/23.png}
     \includegraphics[width=0.3\textwidth]{Immagini/24.png}
     \includegraphics[width=0.3\textwidth]{Immagini/26.png}
     \includegraphics[width=0.3\textwidth]{Immagini/27.png}
     \includegraphics[width=0.3\textwidth]{Immagini/28.png}
-    \caption{Esempio di applicazione del pumping lemma}
+    \caption{Esempi di applicazione del pumping lemma}
     \label{fig:your_image}
 \end{figure}
 \newpage
@@ -898,7 +919,7 @@ Il \textbf{linguaggio della grammatica} è $\{w \in \Sigma^{*} \mid S \Rightarro
 \vspace{1em}
 
 Le tecniche seguenti sono utili, singolarmente o combinate, quando affrontiamo il problema di costruire una CFG.
-Innanzitutto, molti CFL (context-free lenguage) sono l'unione di CFL più semplici. Se devi costruire una CFG per un CFL che puoi dividere in componenti più semplici, fallo e poi costruisci grammatiche separate per ciascuna componente. Queste singole grammatiche possono facilmente essere fuse in una grammatica per il linguaggio iniziale unendo le loro regole e poi aggiungendo la nuova regola $S \rightarrow S_1 \mid S_2 \mid ... \mid S_k$, dove le variabili $S_i$ sono le variabili iniziali per le grammatiche individuali.
+Innanzitutto, molti CFL (context-free language) sono l'unione di CFL più semplici. Se devi costruire una CFG per un CFL che puoi dividere in componenti più semplici, fallo e poi costruisci grammatiche separate per ciascuna componente. Queste singole grammatiche possono facilmente essere fuse in una grammatica per il linguaggio iniziale unendo le loro regole e poi aggiungendo la nuova regola $S \rightarrow S_1 \mid S_2 \mid ... \mid S_k$, dove le variabili $S_i$ sono le variabili iniziali per le grammatiche individuali.
 Per esempio, per ottenere una grammatica per il linguaggio $\{0^n 1^n \mid n \geq 0\} \cup \{1^n 0^n \mid n \geq 0\}$, costruiamo prima la grammatica
 $$
 S_1 \rightarrow 0S_1 1 \mid \varepsilon
@@ -914,7 +935,11 @@ per il linguaggio $\{1^n 0^n \mid n \geq 0\}$ e poi aggiungiamo la regola $S \ri
     S_2 \rightarrow 1S_2 0 \mid \varepsilon.
 \end{align*}
 
-In secondo luogo, costruire una CFG per un linguaggio che sia regolare è facile se si può prima costruire un DFA per quel linguaggio. Si può trasformare un DFA in una CFG equivalente nel modo seguente. Si introduca una variabile $R_i$ per ogni stato $q_i$ del DFA. Si aggiunga la regola $R_I \rightarrow aR_j$ alla CFG se $\delta(q_i,a) = q_j$ è una transizione nel DFA. Si aggiunga la regola $R_i \rightarrow \varepsilon$ se $q_i$ è uno stato accettante del DFA. Si assuma $R_0$ come variabile iniziale della grammatica, dove $q_0$ è lo stato iniziale della macchina. Si può verificare che la CFG risultante genera lo stesso linguaggio di quello riconosciuto dal DFA.
+In secondo luogo, costruire una CFG per un linguaggio che sia regolare è facile se si può prima costruire un DFA per quel linguaggio. 
+Si può trasformare un DFA in una CFG equivalente nel modo seguente. Si introduca una variabile $R_i$ per ogni stato $q_i$ del DFA. 
+Si aggiunga la regola $R_i \rightarrow aR_j$ alla CFG se $\delta(q_i,a) = q_j$ è una transizione nel DFA. 
+Si aggiunga la regola $R_i \rightarrow \varepsilon$ se $q_i$ è uno stato accettante del DFA. Si assuma $R_0$ come variabile iniziale della grammatica, dove $q_0$ è lo stato iniziale della macchina. 
+Si può verificare che la CFG risultante genera lo stesso linguaggio di quello riconosciuto dal DFA.
 \vspace{2em}
 
 \textbf{Ambiguità}
@@ -972,12 +997,15 @@ Come prima, $u$ è una stringa di variabili e terminali. Ripetiamo questi passi 
 Infine, trasformiamo tutte le restanti regole nella forma appropriata.
 Rimpiazziamo ogni regola $A \rightarrow u_1u_2...uk$ dove $k \geq 3$ e ciascun $u_i$ è una variabile o un simbolo terminale, con le regole $A \rightarrow u_1A_1,\text{ }A_1 \rightarrow u_2A_2,\text{ }A_2 \rightarrow u_3A_3,...\text{and } A_{k-2} \rightarrow u_{k-1}u_k$. Le $A_i$ sono nuove variabili.
 Rimpiazziamo ogni terminale $u_i$ nelle precedenti regole con la nuova variabile $U_i$ e aggiungiamo la regola $U_i \rightarrow u_i$.
+\vspace{3em}
+
+\href{https://chatgpt.com/share/6759c2bc-a61c-8011-af18-0db9d52bdd29}{\textcolor{blue}{Link a chatgpt che lo spiega meglio.}}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{Immagini/34.png}
-    \includegraphics[width=0.5\textwidth]{Immagini/35.png}
-    \includegraphics[width=0.5\textwidth]{Immagini/36.png}
+    \includegraphics[width=0.3\textwidth]{Immagini/34.png}
+    \includegraphics[width=0.3\textwidth]{Immagini/35.png}
+    \includegraphics[width=0.3\textwidth]{Immagini/36.png}
     \caption{Esempio regole Teorema 2.9}
     \label{fig:your_image}
 \end{figure}
@@ -1070,6 +1098,7 @@ Mostreremo come trasformare ogni grammatica context-free in automa a pila che ri
 Ricordiamo che abbiamo definito un linguaggio context-free come un linguaggio che può essere descritto con una grammatica context-free.
 Quindi il nostro obiettivo è il teorema seguente.
 
+\newpage
 \paragraph{Teorema 2.20}
 \label{teorema-2.20}
 \text{ }
@@ -1131,7 +1160,7 @@ Quello che segue è una descrizione informale di $P$.
 Ora diamo i dettagli formali della costruzione dell'automa a pila $P = (Q,\Sigma,\Gamma,\delta,q_{start},F)$. 
 Per rendere più chiara la costruzione, usiamo una notazione abbreviata per la funzione di transizione.
 Questa notazione fornisce un modo per scrivere un'intera stringa sulla pila in un passo della macchina. 
-Possiamo sumulare quest'azione introducendo stati aggiuntivi per scrivere la stringa in simbolo alla volta, come realizzato nella seguente costruzione formale.
+Possiamo simulare quest'azione introducendo stati aggiuntivi per scrivere la stringa un simbolo alla volta, come realizzato nella seguente costruzione formale.
 
 Siano $q$ ed $r$ stati del PDA e siano $a$ in $\Sigma_\varepsilon$ ed $s$ in $\Gamma_\varepsilon$.
 Supponiamo di volere che il PDA vada da $q$ a $r$ quando legge $a$ ed elimina $s$.
@@ -1159,12 +1188,12 @@ Gli stati di $P$ sono $Q = \{q_{start},q_{loop},q_{accept}\} \cup E$ dove $E$ è
 Lo stato iniziale è $q_{start}$. Lo stato accettante è $q_{accept}$.
 
 La funzione di transizione è definita come segue. 
-Cominciamo inizializzando la pila inserendo i simboli \textdollar \text{ }e $S$, realizzando così il passo 1 nella descrizione informale:
+Cominciamo inizializzando la pila inserendo i simboli \textdollar e $S$, realizzando così il passo 1 nella descrizione informale:
 $\delta(q_{start},\varepsilon,\varepsilon) = \{(q_{loop},\textdollar S)\}$.
 Poi aggiungiamo le transizioni per il ciclo principale del passo 2.
 
 In primo luogo, trattiamo il caso (a) in cui la cima della pila contiene una variabile.
-Poniamo $\delta(q_{loop},\varepsilon,A) = \{(q_{loop},w) \mid dove A \rightarrow w \text{ è una regola in }R\}$.
+Poniamo $\delta(q_{loop},\varepsilon,A) = \{(q_{loop},w) \mid \text{dove } A \rightarrow w \text{ è una regola in }R\}$.
 
 In secondo luogo, trattiamo il caso (b) in cui la cima della pila contiene un terminale.
 Poniamo $\delta(q_{loop},a,a) = \{(q_{loop},\varepsilon)\}$.
@@ -1218,7 +1247,7 @@ Innanzitutto, semplifichiamo il nostro compito modificando leggermente $P$ per m
 \end{enumerate}
 
 Dare a $P$ le caratteristiche 1 e 2 è facile.
-Per munirlo della caratteristica 3, sostituiamo ciascuna transizione che contemporaneamente elimina ed inserisce simboli con una sequenza di due transizioni che attraversa un nuovo stato, e sostituiamo ogni transizione che non elimmina ne inserisce simboli con una sequenza di due transizioni che inserisce e poi elimina un simbolo arbitrario della pila.
+Per munirlo della caratteristica 3, sostituiamo ciascuna transizione che contemporaneamente elimina ed inserisce simboli con una sequenza di due transizioni che attraversa un nuovo stato, e sostituiamo ogni transizione che non elimina ne inserisce simboli con una sequenza di due transizioni che inserisce e poi elimina un simbolo arbitrario della pila.
 
 Per progettare $G$ in modo che $A_{pq}$ generi tutte le stringhe che portano $P$ da $p$ con pila vuota a $q$ con pila vuota, dobbiamo capire come $P$ agisce su queste stringhe.
 Per ognuna di tali stringhe $x$, la prima mossa di $P$ su $x$ deve essere un push, poichè ogni mossa è un push o un pop e $P$ non può eliminare da una pila vuota.
@@ -1248,7 +1277,7 @@ Si può intuire questa costruzione dalle figure seguenti.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{Immagini/49.png}
+    \includegraphics[width=0.4\textwidth]{Immagini/49.png}
     \caption{Esempio di grammatica context-free}
     \label{fig:your_image}
 \end{figure}
@@ -1305,7 +1334,7 @@ Per costruzione, $G$ ha la regola $A_{pp} \rightarrow \varepsilon$, perciò la b
 
 \textbf{Passo induttivo.}
 Assumiamo l'enunciato vero per le computazioni di lunghezza al più $k$, dove $k \geq 0$, e dimostriamo che è vero per le computazioni di lunghezza $k + 1$.
-Supponiamo che $P$ abbia una computazione dove $x$ porta da $p$ a $q$ con pile vuote in $k + 1$ passi. 
+Supponiamo che $P$ abbia una computazione dove $x$ porta da $p$ a $q$ con pila vuota in $k + 1$ passi. 
 O la pila è vuota solo all'inizio e alla fine di questa computazione oppure essa si svuota anche altrove.
 Nel primo caso, il simbolo che è stato inserito nella prima mossa deve essere lo stesso simbolo che è stato rimosso nell'ultima mossa. 
 Chiamiamo $u$ questo simbolo. 
@@ -1427,6 +1456,10 @@ Per ottenere la condizione 3, dobbiamo essere sicuri che $vxy$ ha lunghezza al p
 Nell'albero sintattico per $s$ l'occorrenza più in alto di $R$ genera $vxy$.
 Abbiamo scelto $R$ in modo che entrambe le occorrenze di essa cadano nelle $|V|+1$ variabili più in basso del cammino e abbiamo scelto il più lungo cammino nell'albero sintattico, in modo che il sottoalbero in cui $R$ genera $vxy$ sia alto al più $|V|+1$.
 Un albero con questa altezza può generare una stringa di lunghezza al più $b^{|V|+1} = p$.
+\vspace{2em}
+
+\href{https://chatgpt.com/share/6759d8be-13c4-8011-9aad-d7e3e0a8a898}{\textcolor{blue}{Link a chatgpt che lo spiega meglio.}}
+\vspace{1em}
 
 Scritto più precisamente:
 \vspace{1em}
@@ -1627,8 +1660,8 @@ $$
 significa che, se la macchina si trova nello stato $q_i$ e le testine da $1$ a $k$ leggono i simboli da $a_1$ a $a_k$, allora la macchina va nello stato $q_j$, scrive i simboli da $b_1$ a $b_k$ sui nastri, e muove le testine a sinistra o a destra o le lascia ferme.
 Le macchine di Turing multinastro sembrano più potenti delle macchine di Turing ordinarie, ma possiamo dimostrare che sono equivalenti in potenza di calcolo.
 Ricordiamo che due macchine sono equivalenti se riconoscono lo stesso linguaggio.
-\vspace{2em}
 
+\newpage
 \paragraph{Teorema 3.13 orale(24-30)}
 \label{teorema-3.13}
 \text{ }
@@ -2406,7 +2439,7 @@ Il teorema precedente ha un'importante applicazione nella teoria della computazi
 Esso dimostra che alcuni linguaggi non sono decidibili e neppure Turing-riconoscibili, per la ragione che l'insieme dei linguaggi è non numerabile mentre l'insieme di tutte le macchine di Turing è numerabile.
 Poichè ogni macchina di Turing è in grado di riconoscere un solo linguaggio e ci sono più linguaggi che macchine di Turing, alcuni linguaggi non sono riconosciuti da una qualche macchina di Turing.
 Tali linguaggi non sono Turing-riconoscibili, come enunciato nel seguente corollario.
-\newpage
+
 \paragraph{Corollario 4.18(orale 24-30)}
 \label{corollario-4.18}
 \text{}
@@ -2533,7 +2566,7 @@ La contraddizione si ottiene in corrispondenza del punto interrogativo, dove l'e
     \caption{La contraddizione nella dimostrazione del \hyperref[teorema-4.11]{\textcolor{blue}{Teorema 4.11}}}
     \label{figura-4.21}
 \end{figure}
-\newpage
+
 \subsubsection{Un linguaggio non Turing-riconoscibile}
 Nella sezione precedente abbiamo dimostrato che un linguaggio - precisamente $A_{TM}$ - non è decidibile.
 Ora mostriamo un linguaggio che non è neppure Turing-riconoscibile.
@@ -2590,7 +2623,7 @@ Il linguaggio $A_{TM}$ non è Turing-riconoscibile.
 Sappiamo che $A_{TM}$ è Turing-riconoscibile.
 Se anche il suo complemento $\overline{A_{TM}}$ fosse Turing-riconoscibile, allora $A_{TM}$ sarebbe decidibile, il che è falso.
 Il \hyperref[teorema-4.11]{\textcolor{blue}{Teorema 4.11}} ci dice che $A_{TM}$ non è decidibile, quindi $\overline{A_{TM}}$ non è Turing-riconoscibile.
-\newpage
+
 \section{Riducibilità}
 In questo capitolo esamineremo vari altri problemi irrisolvibili.
 Nel far ciò introdurremo il metodo principale per dimostrare che alcuni problemi sono computazionalmente irrisolvibili.
@@ -2737,8 +2770,6 @@ Notate che $S$ deve essere effettivamente in grado di calcolare una descrizione 
 Può farlo, perchè ha bisogno solo di aggiungere ad $M$ alcuni stati in più che svolgono il test $x = w$.
 Se $R$ fosse un decisore per $E_{TM}$, allora $S$ sarebbe un decisore per $A_{TM}$.
 Un decisore per $A_{TM}$ non può esistere, quindi $E_{TM}$ non può essere deciso.
-\newpage
-
 
 Un altro interessante problema computazionale che concerne le macchine di Turing è quello di determinare se una data macchina di Turing riconosce un linguaggio che può essere riconosciuto anche da un modello di calcolo più semplice.
 Ad esempio, sia $REGULAR_{TM}$ il problema di determinare se una machina di Turing ha un automa finito equivalente.
@@ -2919,7 +2950,7 @@ $N = $ "Su input $w$:
 Ovviamente, se $w \in A$, allora $f(w) \in B$ perchè $f$ è una riduzione da $A$ a $B$.
 Quindi $M$ accetta $f(w)$ ogni volta che $w \in A$.
 Quindi, $N$ svolge il compito desiderato.
-\newpage
+
 Il seguente corollario al \hyperref[teorema-5.22]{\textcolor{blue}{Teorema 5.22}} rappresenta il nostro strumento principale nelle dimostrazioni di indecidibilità.
 \vspace{1em}
 \text{}
@@ -2930,11 +2961,11 @@ Il seguente corollario al \hyperref[teorema-5.22]{\textcolor{blue}{Teorema 5.22}
 Ora rivediamo alcune delle nostre prove precedenti che hanno utilizzato il metodo della riducibilità per ottenere esempi di riduzione mediante funzione.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{Immagini/85.png}
+    \includegraphics[width=0.4\textwidth]{Immagini/85.png}
     \includegraphics[width=0.4\textwidth]{Immagini/87.png}
     \label{fig:example}
 \end{figure}
-\includegraphics[width=0.5\textwidth]{Immagini/86.png}
+\includegraphics[width=0.3\textwidth]{Immagini/86.png}
 \newpage
 \paragraph{Teorema 5.28}
 \label{teorema-5.28}
@@ -3300,7 +3331,7 @@ Ricordiamo che una macchina di Turing non deterministica è un decisore se tutte
 
 La definizione del tempo di esecuzione di una macchina di Turing non deterministica non è destinata a corrispondere ad un qualche dispositivo informatico reale.
 Piuttosto, si tratta di un'utile definizione matematica che aiuta a caratterizzare la complessità di una classe importante di problemi computazionali, come dimostreremo a breve.
-\newpage
+
 \subsubsection{Teorema 7.11 (orale 24-30)}
 \label{teorema-7.11}
 \begin{tcolorbox}[colback=yellow!10!white, colframe=yellow!50!black, title=Teorema 7.11]
@@ -3583,7 +3614,7 @@ Ogni volta che la fase 7 viene eseguita, le fasi 8 e 9 sono eseguite al più $r$
 Ogni volta che la fase 9 viene eseguita, la fase 10 è eseguita $r$ volte, dove $r$ è il numero di regole di $G$ ed è un'altra costante.
 Quindi la fase 11, il ciclo interno dell'algoritmo, viene eseguito $O(n^3)$ volte.
 La somma totale mostra che $D$ esegue $O(n^3)$ fasi.
-\newpage
+
 \subsection{La classe NP}
 Come abbiamo osservato nella precedente, per molti problemi possiamo evitare la ricerca mediante forza bruta ed ottenere una soluzione polinomiale.
 Tuttavia, i tentativi di evitare la forza bruta nel caso di altri problemi, tra cui molti utili ed interessanti, non hanno avuto successo e non sono noti algoritmi polinomiali per risolvere tali problemi.
@@ -3624,7 +3655,7 @@ Alcuni problemi potrebbero non essere polinomialmente verificabili.
 Per esempio, consideriamo $\overline{HAMPATH}$, il complemento del problema $HAMPATH$. 
 Anche se riuscissimo a determinare (in qualche modo) che un grafo non ha un cammino Hamiltoniano, non conosciamo alcun modo per verificarne l'inesistenza senza utilizzare lo stesso algoritmo avente tempo esponenziale usato per la determinazione originaria. 
 Una definizione formale è la seguente.
-\newpage
+
 \paragraph{Definizione 7.18}
 \label{definizione-7.18}
 \vspace{1em}
@@ -3990,8 +4021,6 @@ Se un assegnamento soddisfa una formula cnf, ciascuna clausola deve contenere al
 
 Il teorema seguente presenta una riduzione di tempo polinomiale dal problema $3SAT$ al problema $CLIQUE$.
 
-\text{}
-\newline
 \paragraph{Teorema 7.32 (orale)}
 \label{teorema-7.32}
 \vspace{1em}
@@ -4058,7 +4087,6 @@ I Teoremi \hyperref[teorema-7.31]{\textcolor{blue}{7.31}} e \hyperref[teorema-7.
 
 A questo punto volgiamo l'attenzione ad una definizione che ci permette in modo simile di collegare le complessità di un'intera classe di problemi.
 
-\newpage
 \subsubsection{Definizione di NP-completezza}
 \paragraph{Definizione 7.34}
 \label{definizione-7.34}
@@ -4522,7 +4550,6 @@ Definiamo $G = (V,E)$ come
 \end{enumerate}
 \textbf{Conclusione:} $\textit{3-CNF-SAT} \leq_P \textit{CLIQUE}$. Q.E.D.
 
-\newpage
 \textbf{Esempio:}
 \begin{figure}[H]
     \centering
@@ -4630,7 +4657,6 @@ Dato ($G, k$) per $CLIQUE$, la coppia da considerare per $VERTEX-COVER$ è ($\ov
     \label{fig:vertex-cover-example-2}
 \end{figure}
 
-\newpage
 \subsection{Approssimazione}
 Molti problemi pratici sono \textit{NPC}, ma troppo rilevanti per essere abbandonati solo perché non sappiamo come trovare una soluzione ottimale in tempo polinomiale.
 
@@ -4689,7 +4715,6 @@ $\Rightarrow$ si può negoziare il tempo computazionale per la qualità dell’a
     Questo problema è la versione ottimizzata di \textit{VERTEX-COVER} ($\in$\textit{NPC}), quindi non si può risolvere in tempo polinomiale a meno che $P = NP$.
 \end{tcolorbox}
 
-\newpage
 \textbf{IDEA:} Ad ogni passo, selezioniamo il nodo che «copre» più archi.
 
 \begin{figure}[H]
@@ -4783,7 +4808,6 @@ $\Rightarrow$ si può fare meglio con un \textit{approximation ratio} costante.
     \end{itemize}
 \end{itemize}
 
-\newpage
 \section{Complessità di Spazio}
 In questo capitolo valutiamo la complessità dei problemi computazionali in termini della quantità di spazio, o memoria, che essi richiedono.
 Tempo e spazio sono due dei fattori più importanti quando ricerchiamo soluzioni pratiche per numerosi problemi computazionali.
@@ -4823,7 +4847,6 @@ Sia $f : \mathbb{N} \rightarrow \mathbb{R}^+$ una funzione.
     \label{fig:space-complexity}
 \end{figure}
 
-\newpage
 \subsection{Teorema di Savitch (e mo so cazzi pt.2)}
 Il teorema di Savitch è uno dei primi risultati riguardanti la complessità di spazio. 
 Mostra che le macchine deterministiche possono simulare le macchine non deterministiche usando una quantità di spazio sorprendentemente molto piccola.
