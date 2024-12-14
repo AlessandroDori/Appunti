@@ -2613,7 +2613,7 @@ Quindi $M$ è un decisore per $A$, e pertanto $A$ è decidibile.
 \text{}
 \newline
 \begin{tcolorbox}[title=Corollario 4.23]
-Il linguaggio $A_{TM}$ non è Turing-riconoscibile.
+Il linguaggio $\overline{A_{TM}}$ non è Turing-riconoscibile.
 \end{tcolorbox}
 \vspace{1em}
 \text{}
@@ -2663,13 +2663,13 @@ $HALT_{TM}$ è indecidibile.
 \hbox{\textbf{IDEA.}}
 Questa dimostrazione è per assurdo.
 Assumiamo che $HALT_{TM}$ sia decidibile e usiamo questa assunzione per dimostrare che $A_{TM}$ è decidibile, contraddicendo il \hyperref[teorema-4.11]{\textcolor{blue}{Teorema 4.11}}.
-Lidea chiave è quella di mostrare che $A_{TM}$ è riducibile a $HALT_{TM}$.
+L'idea chiave è quella di mostrare che $A_{TM}$ è riducibile a $HALT_{TM}$.
 
 Supponiamo di avere una TM $R$ che decide $HALT_{TM}$.
 Usiamo quindi $R$ per costruire una TM $S$ che decide $A_{TM}$.
 Per intuire come possiamo costruire $S$, immaginate di essere $S$.
 Il vostro compito è decidere $A_{TM}$.
-Ricevete un input $\langle M,w \rangle$..
+Ricevete un input $\langle M,w \rangle$.
 Dovete dare in output \textit{accetta} se $M$ accetta $w$ e \textit{rifiuta} se $M$ non accetta $w$.
 Provate a simulare $M$ su $w$.
 Se accetta o rifiuta, fate lo stesso.
@@ -2725,7 +2725,7 @@ Seguiamo lo schema adottato nel \hyperref[teorema-5.1]{\textcolor{blue}{Teorema 
 Assumuamo che $E_{TM}$ è decidibile e mostriamo che $A_{TM}$ è decidibile - una contraddizione.
 Sia $R$ una TM che decide $E_{TM}$.
 Utilizziamo $R$ per costruire la TM $S$ che decide $A_{TM}$.
-Come dunzionerà $S$ quando riceve in input $\langle M,w \rangle$?
+Come funzionerà $S$ quando riceve in input $\langle M,w \rangle$?
 
 Un'idea è che $S$ esegue $R$ su input $\langle M \rangle$ e vede se $R$ accetta.
 Se lo fa, sappiamo che $L(M) = \emptyset$ e quindi $M$ non accetta $w$.
@@ -2849,7 +2849,7 @@ $EQ_{TM}$ è indecidibile.
 \text{}
 \newline
 \hbox{\textbf{IDEA.}}
-Mostriamo che se $EQ_{TM}$ fosse decidibile, allora $E_{TM}$ sarebbe decidibile eseguendo una riduzione da $ET_{TM}$ a $EQ_{TM}$.
+Mostriamo che se $EQ_{TM}$ fosse decidibile, allora $E_{TM}$ sarebbe decidibile eseguendo una riduzione da $E_{TM}$ a $EQ_{TM}$.
 L'idea è semplice.
 $E_{TM}$ è il problema di determinare se il linguaggio di una TM è vuoto.
 $EQ_{TM}$ è il problema di determinare se i linguaggi delle due TM sono uguali.
