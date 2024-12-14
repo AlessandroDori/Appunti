@@ -30,37 +30,36 @@
 
 \begin{titlepage}
     \centering
-    \vspace*{1cm}
+    \vspace*{1in}
     
-    \Huge
-    \textbf{Automi}
+    \includegraphics[width=0.4\textwidth]{Immagini/logo-sapienza.png}\par\vspace{1cm}
     
-    \vspace{0.5cm}
-    \LARGE
-    Appunti di Automi
-    
+    {\scshape\LARGE Università degli Studi di Roma "La Sapienza" \par}
     \vspace{1.5cm}
     
-    \textbf{Alessandro Dori}
+    {\scshape\Large Riassunti di Automi\par}
+    \vspace{1.5cm}
     
-    \Large
-    Università degli Studi di Roma "La Sapienza"\\
-    Facoltà di Informatica
+    {\Large\itshape Alessandro Dori\par}
     
-    \vspace{0.8cm}
-    
-    \today
-
     \vspace{3cm}
 
     \begin{tcolorbox}[colback=red!10!white, colframe=red!50!black, title=ATTENZIONE!]
         \textbf{Tutti i teoremi/esempi/dimostrazioni sono richiesti all'orale per un voto 18-24, ad eccezione di quelli segnalati con (24-30) o (30L). Quindi pure se non c'è la parentesi (orale) è comunque richiesto all'orale. STUDIATE!}
     \end{tcolorbox}
     
+    Docente:\par
+    {\large Prof. Daniele Gorla\par}
+    
+    \vfill
+    
+    {\large Anno Accademico 2024/2025\par}
+    
 \end{titlepage}
 
 \tableofcontents
 \newpage
+
 
 \section{Linguaggi regolari}
 \subsection{Automi finiti}
@@ -2140,7 +2139,7 @@ $EQ_{DFA}$ è un linguaggio decidibile.
 \newline
 \hbox{\textbf{DIMOSTRAZIONE.}}
 Per dimostrare questo teorema usiamo il \hyperref[teorema-4.4]{\textcolor{blue}{Teorema 4.4}}.
-Costruiamo un nuovoDFA $C$ a partire da $A$ e $B$ , dove $C$ accetta solo quelle stringhe che sono accettate da $A$ o da $B$, ma non da entrambi.
+Costruiamo un nuovo DFA $C$ a partire da $A$ e $B$ , dove $C$ accetta solo quelle stringhe che sono accettate da $A$ o da $B$, ma non da entrambi.
 In particolare, se $A$ e $B$ riconoscono lo stesso linguaggio, $C$ non accetterà nulla.
 Il linguaggio di $C$ è
 $$
@@ -2149,8 +2148,8 @@ $$
 Questa espressione è a volte denotata come \textbf{differenza simmetrica} di $L(A)$ e $L(B)$ ed è illustrata nella figura seguente.
 Qui $\overline{L(A)}$ denota il complemento di $L(A)$.
 La differenza simmetrica è utile perchè $L(C) = \emptyset$ se e solo se $L(A) = L(B)$.
-Siamo in grado di costruire $C$ da $A$ e $B$ con le costruzioni fatte per dimostrare che la classe dei linguaggi regolari risulta chiusa rispetto alle operazioni di complemento, union e intersezione.
-Queste costruzioni sono algoritmi che nìpossono essere eseguiti da macchine di Turing.
+Siamo in grado di costruire $C$ da $A$ e $B$ con le costruzioni fatte per dimostrare che la classe dei linguaggi regolari risulta chiusa rispetto alle operazioni di complemento, unione e intersezione.
+Queste costruzioni sono algoritmi che possono essere eseguiti da macchine di Turing.
 Una volta che abbiamo costruito $C$ possiamo usare il \hyperref[teorema-4.4]{\textcolor{blue}{Teorema 4.4}} per determinare se $L(C) = \emptyset$ o meno.
 Se è vuoto, $L(A)$ e $L(B)$ devono essere uguali.
 \vspace{1em}
@@ -2186,12 +2185,12 @@ $A_{CFG}$ è un linguaggio decidibile.
 \hbox{\textbf{IDEA.}}
 Per la CFG $G$ e la stringa $w$ vogliamo determinare se $G$ genera $w$.
 Un'idea è quella di utilizzare $G$ per passare attraverso tutte le derivazioni per determinare se ne esiste una di $w$.
-Quest'dea non funziona, poichè bisognerebbe provare infinite derivazioni.
-Se $GG$ non genera $w$, questo algoritmo potrebbe non fermarsi.
-Tale idea dàuna macchina di Turing che è un riconoscitore, non un decisore, per $A_{CFG}$.
+Quest'idea non funziona, poichè bisognerebbe provare infinite derivazioni.
+Se $G$ non genera $w$, questo algoritmo potrebbe non fermarsi.
+Tale idea dà una macchina di Turing che è un riconoscitore, non un decisore, per $A_{CFG}$.
 Per rendere questa macchina di Turing un decisore occorre assicurare che l'algoritmo provi solo un numero finito di derivazioni.
 Precedentemente abbiamo dimostrato che, se G fosse in forma normale di Chomsky, qualsiasi derivazione di $w$ avrebbe $2n - 1$ passi, dove $n$ è la lunghezza di $w$.
-In tal caso sarebbe sufficiente controllare solo ferivazioni di $2n - 1$ passi per determinare se $G$ genera $w$.
+In tal caso sarebbe sufficiente controllare solo derivazioni di $2n - 1$ passi per determinare se $G$ genera $w$.
 Tali derivazioni sono in numero finito.
 Possiamo convertire $G$ in forma normale di Chomsky utilizzando la procedura data nel \hyperref[Forma normale di Chomsky]{\textcolor{blue}{Teorema}}.
 \vspace{1em}
@@ -2213,7 +2212,7 @@ Il problema di determinare se una CFG genera una particolare stringa è correlat
 Ricordiamo che abbiamo dato procedure per la conversione in entrambi i sensi tra CFG e PDA nel \hyperref[teorema-2.20]{\textcolor{blue}{Teorema 2.20}}.
 Quindi tutto quello che diciamo circa la decidibilità dei problemi concernenti le CFG vale anche per i PDA.
 Torniamo al problema dei test del vuoto per il linguaggio di una CFG.
-Come abbiamo fatto per i DFA, possiamo dimostrare che il problema di determinare se una CFG genera almeno una strinfa è decidibile. Sia
+Come abbiamo fatto per i DFA, possiamo dimostrare che il problema di determinare se una CFG genera almeno una stringa è decidibile. Sia
 $$
 E_{CFG} = \{\langle G \rangle \mid G \text{ è una CFG e } L(G) = \emptyset \}.
 $$
@@ -2328,8 +2327,8 @@ $A_{TM}$ è indecidibile.
 \vspace{1em}
 \text{}
 \newline
-Prima di vedere la simostrazione, osserviamo che $A_{TM}$ è Turing-riconoscibile.
-Quindi questo teorema mostra che i criconoscitori sono più potenti dei decisori.
+Prima di vedere la dimostrazione, osserviamo che $A_{TM}$ è Turing-riconoscibile.
+Quindi questo teorema mostra che i riconoscitori sono più potenti dei decisori.
 Richiedere che una TM si fermi su ogni input limita le tipologie dei linguaggi che possono essere riconosciuti.
 La seguente macchina di Turing $U$ riconosce $A_{TM}$.
 \vspace{1em}
@@ -2347,7 +2346,7 @@ Come dimostreremo, un algoritmo non ha modo di determinarlo.
 
 La macchina di Turing $U$ è, di per sè, interessante.
 E' un esempio della prima macchina universale di Turing introdotta nel 1936.
-Questa macchina è chiamata universale perchè è in grado di simulare qualsiasi altra macchina fi Turing a partire dalla descrizione di tale macchina.
+Questa macchina è chiamata universale perchè è in grado di simulare qualsiasi altra macchina di Turing a partire dalla descrizione di tale macchina.
 La macchina di Turing universale ha avuto un ruolo importante nello stimolare lo sviluppo di computer a programma memorizzato.
 
 \subsubsection{Il metodo della diagonalizzazione}
@@ -2452,7 +2451,7 @@ Per dimostrare che l'insieme di tutte le macchine di Turing è numerabile dobbia
 Avendo solo un numero finito di stringhe di ogni lunghezza, possiamo formare una lista di $\Sigma^*$ scrivendo tutte le stringhe di lunghezza 0, lunghezza 1, lunghezza 2, e così via.
 L'insieme di tutte le macchine di Turing è numerabile perchè ogni macchina di Turing $M$ può essere codificata con una stringa $\langle M \rangle$.
 Se ci limitiamo a tralasciare quelle stringhe che non sono la codifica di una macchina di Turing, possiamo ottenere una lista di tutte le macchine di Turing.
-Per mostrare che l'insieme di tutti i linguaggi è non numerabile, dobbiamo prima osservare che l'insieme delle sequenze binarie indinite è non-numerabile.
+Per mostrare che l'insieme di tutti i linguaggi è non numerabile, dobbiamo prima osservare che l'insieme delle sequenze binarie infinite è non-numerabile.
 Una sequenza binaria infinita è una sequenza senza fine di 0 e 1.
 Sia $\mathcal{B}$ l'insieme di tutte le sequenze binarie infinite.
 Possiamo dimostrare che $\mathcal{B}$ è non numerabile utilizzando una dimostrazione mediante diagonalizzazione simile a quella che abbiamo utilizzato nel \hyperref[teorema-4.17]{\textcolor{blue}{Teorema 4.17}} per mostrare la non numerabilità di $\mathbb{R}$.
@@ -2475,7 +2474,7 @@ La funzione $f: \mathcal{L} \rightarrow \mathcal{B}$, dove $f(A)$ è uguale alla
 Pertanto, essendo $\mathcal{B}$ non numerabile, anche $\mathcal{L}$ è non numerabile.
 
 Abbiamo così dimostrato che l'insieme di tutti i linguaggi non può essere messo in corrispondenza biunivoca con l'insieme di tutte le macchine di Turing.
-Concludiamo quandi che alcuni linguaggi non sono riconosciuti da alcuna macchina di Turing.
+Concludiamo quindi che alcuni linguaggi non sono riconosciuti da alcuna macchina di Turing.
 
 \subsubsection{Un linguaggio indecidibile}
 Siamo ora pronti a dimostrare il \hyperref[teorema-4.11]{\textcolor{blue}{Teorema 4.11}}, l'indecidibilità del linguaggio
@@ -2500,7 +2499,7 @@ H(\langle M,w \rangle) =
 $$
 Ora costruiamo una nuova macchina di Turing $D$ avente $H$ come sottoprocedura.
 Questa nuova TM chiama $H$ per determinare cosa fa $M$ quando l'input è la sua stessa descrizione $\langle M \rangle$.
-Una volta che $D$ ha determinato quasta informazione, essa fa il contrario.
+Una volta che $D$ ha determinato questa informazione, essa fa il contrario.
 Cioè, rifiuta se $M$ accetta ed accetta se $M$ non accetta. Diamo ora una descrizione di $D$.
 \newline
 $D = $ "Sull'input $\langle M \rangle$, dove $M$ è una TM:
@@ -2570,10 +2569,10 @@ La contraddizione si ottiene in corrispondenza del punto interrogativo, dove l'e
 \subsubsection{Un linguaggio non Turing-riconoscibile}
 Nella sezione precedente abbiamo dimostrato che un linguaggio - precisamente $A_{TM}$ - non è decidibile.
 Ora mostriamo un linguaggio che non è neppure Turing-riconoscibile.
-Si noti che $A_{TM}$ non basta allo copo, perchè abbiamo dimostrato che $A_{TM}$ è Turing-riconoscibile.
+Si noti che $A_{TM}$ non basta allo scopo, perchè abbiamo dimostrato che $A_{TM}$ è Turing-riconoscibile.
 Il teorema seguente mostra che, se un linguaggio ed il suo complemento sono entrambi Turing-riconoscibili, allora il linguaggio è decidibile.
 Quindi, per qualsiasi linguaggio non decidibile, o esso non è Turing-riconoscibile oppure il suo complemento non è Turing-riconoscibile.
-Ricordiamo che il complemento di un linguaggio èil linguaggio costituito da tutte le stringhe che non sono nel linguaggio.
+Ricordiamo che il complemento di un linguaggio è il linguaggio costituito da tutte le stringhe che non sono nel linguaggio.
 Diciamo che un linguaggio è \textbf{\textit{co-Turing-riconoscibile}} se esso è il complemento di un linguaggio Turing-riconoscibile.
 
 \paragraph{Teorema 4.22(orale)}
@@ -2588,7 +2587,7 @@ In altre parole, un linguaggio è decidibile esattamente quando sia esso che il 
 \newline
 \hbox{\textbf{DIMOSTRAZIONE.}}
 Abbiamo due direzioni da dimostrare.
-In primo luogo, se $A$ è decifibile, possiamo facilmente vedere che sia $A$ che il suo complemento $\overline{A}$ sono Turing-riconoscibili.
+In primo luogo, se $A$ è decidibile, possiamo facilmente vedere che sia $A$ che il suo complemento $\overline{A}$ sono Turing-riconoscibili.
 Qualsiasi linguaggio decidibile è Turing-riconoscibile, e il complemento di un linguaggio decidibile è anch'esso decidibile.
 Per la direzione inversa, se entrambi $A$ e $\overline{A}$ sono Turing-riconoscibili, indichiamo con $M_1$ il riconoscitore per $A$ e con $M_2$ il riconoscitore per $\overline{A}$.
 La seguente macchina di Turing $M$ è un decisore per $A$.
