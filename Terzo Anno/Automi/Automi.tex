@@ -735,6 +735,59 @@ Nella Figura 1.67(c), eliminiamo lo stato 2 e aggiorniamo le etichette degli arc
     \label{fig:your_image}
 \end{figure}
 
+\subsection{Grammatica generativa}
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!50!black, title=Definizione 2.35]
+    Una grammatica è una quadrupla $G = (V,\Sigma,R,S)$ dove
+    \begin{enumerate}
+        \item $V$ è un insieme finito di variabili.
+        \item $\Sigma$ è un insieme finito di simboli terminali disgiunto da $V$.
+        \item $R$ è un insieme finito di regole di produzione, con $R \subseteq (V \cup \Sigma)^+ \times (V \cup \Sigma)^*$.
+        \item $S \in V$ è la variabile iniziale.
+    \end{enumerate}
+\end{tcolorbox}
+Notazionalmente, regole con la stessa parte sinistra sono raggruppate, cioè se ($\alpha,\beta_1$),...,($\alpha,\beta_n$) sono regole in $R$ con prima componente $\alpha$, scriveremo $\alpha \rightarrow \beta_1 \mid ... \mid \beta_n$.
+
+Se $u,v,\alpha,\beta$ sono stringhe di variabili e terminali, ed ($\alpha,\beta$) è una regola della grammatica, diremo che $u\alpha v$  \textit{\textbf{produce}} $u\beta v$ in un passo, e scriveremo $u\alpha v \Rightarrow u\beta v$.
+
+Diremo che $u$ \textit{\textbf{deriva}} $v$, scritto $u \Rightarrow^* v$, se $u = v$ oppure se esiste una sequenza $u_1, u_2, ..., u_k$ con ($k \geq 0$) tale che $u \Rightarrow u_1 \Rightarrow ... \Rightarrow u_k \Rightarrow v$.
+
+Il \textit{\textbf{linguaggio generato dalla grammatica}} $G$ è $L(G) = \{w \in \Sigma^* \mid S \Rightarrow^* w\}$.
+
+\subsubsection{Gerarchia di Chomsky}
+In base alla forma delle regole della grammatica, possiamo distinguere i seguenti tipi:
+
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{\textit{Tipo della grammatica}} & \textbf{\textit{Forma delle Regole}} & \textbf{\textit{Linguaggio prodotto}} \\
+        \hline
+        Tipo 0 & Nessun vincolo & Ricorsivamente enumerabile \\
+        \hline
+        Tipo 1 & \makecell{$\alpha ::= \beta$ \\ per $0 < \mid \alpha \mid \leq \mid \beta \mid$} & Context-sensitive \\
+        \hline
+        Tipo 2 & \makecell{$A ::= \beta$ \\ per $A \in V, \beta \in (\Sigma \cup V)^*$} & Context-free \\
+        \hline
+        Tipo 3 & \makecell{$A ::= \beta$ \\ per $A \in V, \beta \in (\Sigma^* \cup \Sigma^* V \bigcup V\Sigma^*)$} & Regolare \\
+        \hline
+    \end{tabular}
+    \label{tab:example_table}
+\end{table}
+
+\begin{tcolorbox}[colback=red!10!white, colframe=red!50!black, title=\textbf{NB!}]
+    Per i linguaggi che non contengono $\varepsilon$, si può vedere facilmente che ogni grammatica di tipo $i$ è anche la grammatica di tipo $j$, per ogni $j < i$.
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=red!10!white, colframe=red!50!black, title=\textbf{OSS}]
+    Il nome <<context-sensitive>> deriva dal fatto che ogni grammatica di tipo 1 può essere trasformata in una grammatica equivalente in cui tutte le regole hanno la forma
+    $$
+    (\alpha_1 A \alpha_2, \alpha_1 \beta \alpha_2) \text{ per } A \in V, \alpha_1, \alpha_2 \in (\Sigma \cup V)^* \text{ e } \beta \in (\Sigma \cup V)^+.
+    $$
+    I una CFG, $\alpha_1 = \alpha_2 = \varepsilon$ e quindi $A$ può essere sempre sostituita con $\beta$;
+    al contrario, in una CSG questo è possibile sono nel contesto $\alpha_1[-] \alpha_2$.
+\end{tcolorbox}
+
 \subsubsection{Grammatiche Regolari}
 Una grammatica $G = (V,\Sigma,R,S)$ è detta
 \begin{itemize}
@@ -815,6 +868,7 @@ Quindi, una grammatica più compatta (ed equivalente alla precedente) è
     &C ::= 0B \mid 0 \\
 \end{align*}
 
+\clearpage
 \paragraph{Corollario1(orale)}
 \label{corollario-9.1}
 \text{}
@@ -1254,8 +1308,8 @@ Le stringhe $s_i$ rappresentano la sequenza del contenuto della pila che $M$ ha 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{Immagini/38.png}
-    \includegraphics[width=0.5\textwidth]{Immagini/39.png}
+    \includegraphics[width=0.3\textwidth]{Immagini/38.png}
+    \includegraphics[width=0.3\textwidth]{Immagini/39.png}
     \caption{Esempio di automa a pila}
     \label{fig:pushdown_automaton_example1}
 \end{figure}
@@ -1265,9 +1319,9 @@ Questo PDA è in grado di ottenere lo stesso risultato poichè lo stato accettan
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{Immagini/40.png}
-    \includegraphics[width=0.5\textwidth]{Immagini/41.png}
-    \includegraphics[width=0.5\textwidth]{Immagini/42.png}
+    \includegraphics[width=0.3\textwidth]{Immagini/40.png}
+    \includegraphics[width=0.3\textwidth]{Immagini/41.png}
+    \includegraphics[width=0.3\textwidth]{Immagini/42.png}
     \caption{Esempio di automa a pila}
     \label{fig:nuova_immagine}
 \end{figure}
@@ -1288,7 +1342,7 @@ Quindi il nostro obiettivo è il teorema seguente.
     Un linguaggio è context-free se e solo se qualche automa a pila lo riconosce.
 \end{tcolorbox}
 
-\newpage
+
 \paragraph{Lemma 2.21(orale)}
 \text{ }
 
@@ -1334,7 +1388,7 @@ Quello che segue è una descrizione informale di $P$.
         \item Se sulla cima della pila c'è il simbolo \textdollar \text{ }, entra nello stato accettante. In questo modo accetta l'input se esso è stato completamente letto.
     \end{itemize}
 \end{enumerate}
-\vspace{1em}
+\clearpage
  
 \textbf{DIMOSTRAZIONE.}
 
@@ -1670,61 +1724,6 @@ $$
     \includegraphics[width=0.4\textwidth]{Immagini/54.png}
     \label{fig:pump_example}
 \end{figure}
-\newpage
-
-\subsection{Grammatica generativa}
-
-\begin{tcolorbox}[colback=blue!10!white, colframe=blue!50!black, title=Definizione 2.35]
-    Una grammatica è una quadrupla $G = (V,\Sigma,R,S)$ dove
-    \begin{enumerate}
-        \item $V$ è un insieme finito di variabili.
-        \item $\Sigma$ è un insieme finito di simboli terminali disgiunto da $V$.
-        \item $R$ è un insieme finito di regole di produzione, con $R \subseteq (V \cup \Sigma)^+ \times (V \cup \Sigma)^*$.
-        \item $S \in V$ è la variabile iniziale.
-    \end{enumerate}
-\end{tcolorbox}
-Notazionalmente, regole con la stessa parte sinistra sono raggruppate, cioè se ($\alpha,\beta_1$),...,($\alpha,\beta_n$) sono regole in $R$ con prima componente $\alpha$, scriveremo $\alpha \rightarrow \beta_1 \mid ... \mid \beta_n$.
-
-Se $u,v,\alpha,\beta$ sono stringhe di variabili e terminali, ed ($\alpha,\beta$) è una regola della grammatica, diremo che $u\alpha v$  \textit{\textbf{produce}} $u\beta v$ in un passo, e scriveremo $u\alpha v \Rightarrow u\beta v$.
-
-Diremo che $u$ \textit{\textbf{deriva}} $v$, scritto $u \Rightarrow^* v$, se $u = v$ oppure se esiste una sequenza $u_1, u_2, ..., u_k$ con ($k \geq 0$) tale che $u \Rightarrow u_1 \Rightarrow ... \Rightarrow u_k \Rightarrow v$.
-
-Il \textit{\textbf{linguaggio generato dalla grammatica}} $G$ è $L(G) = \{w \in \Sigma^* \mid S \Rightarrow^* w\}$.
-
-\subsubsection{Gerarchia di Chomsky}
-In base alla forma delle regole della grammatica, possiamo distinguere i seguenti tipi:
-
-\begin{table}[H]
-    \centering
-    \renewcommand{\arraystretch}{1.5}
-    \begin{tabular}{|c|c|c|}
-        \hline
-        \textbf{\textit{Tipo della grammatica}} & \textbf{\textit{Forma delle Regole}} & \textbf{\textit{Linguaggio prodotto}} \\
-        \hline
-        Tipo 0 & Nessun vincolo & Ricorsivamente enumerabile \\
-        \hline
-        Tipo 1 & \makecell{$\alpha ::= \beta$ \\ per $0 < \mid \alpha \mid \leq \mid \beta \mid$} & Context-sensitive \\
-        \hline
-        Tipo 2 & \makecell{$A ::= \beta$ \\ per $A \in V, \beta \in (\Sigma \cup V)^*$} & Context-free \\
-        \hline
-        Tipo 3 & \makecell{$A ::= \beta$ \\ per $A \in V, \beta \in (\Sigma^* \cup \Sigma^* V \bigcup V\Sigma^*)$} & Regolare \\
-        \hline
-    \end{tabular}
-    \label{tab:example_table}
-\end{table}
-
-\begin{tcolorbox}[colback=red!10!white, colframe=red!50!black, title=\textbf{NB!}]
-    Per i linguaggi che non contengono $\varepsilon$, si può vedere facilmente che ogni grammatica di tipo $i$ è anche la grammatica di tipo $j$, per ogni $j < i$.
-\end{tcolorbox}
-
-\begin{tcolorbox}[colback=red!10!white, colframe=red!50!black, title=\textbf{OSS}]
-    Il nome <<context-sensitive>> deriva dal fatto che ogni grammatica di tipo 1 può essere trasformata in una grammatica equivalente in cui tutte le regole hanno la forma
-    $$
-    (\alpha_1 A \alpha_2, \alpha_1 \beta \alpha_2) \text{ per } A \in V, \alpha_1, \alpha_2 \in (\Sigma \cup V)^* \text{ e } \beta \in (\Sigma \cup V)^+.
-    $$
-    I una CFG, $\alpha_1 = \alpha_2 = \varepsilon$ e quindi $A$ può essere sempre sostituita con $\beta$;
-    al contrario, in una CSG questo è possibile sono nel contesto $\alpha_1[-] \alpha_2$.
-\end{tcolorbox}
 
 \newpage
 \section{La Tesi di Church-Turing}
