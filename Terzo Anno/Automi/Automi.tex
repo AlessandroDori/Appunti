@@ -735,8 +735,191 @@ Nella Figura 1.67(c), eliminiamo lo stato 2 e aggiorniamo le etichette degli arc
     \label{fig:your_image}
 \end{figure}
 
-\subsubsection{Linguaggi non regolari}
+\subsubsection{Grammatiche Regolari}
+Una grammatica $G = (V,\Sigma,R,S)$ è detta
+\begin{itemize}
+    \item \textbf{\textit{Lineare sinistra}} se, per ogni ($\alpha,\beta$) $\in R$, si ha che $\alpha \in V$ e $\beta \in (\Sigma^* \cup V\Sigma^*)$. 
+    \item \textbf{\textit{Lineare destra}} se, per ogni ($\alpha,\beta$) $\in R$, si ha che $\alpha \in V$ e $\beta \in (\Sigma^* \cup \Sigma^* V)$.
+    \item \textbf{\textit{Regolare}} se è lineare sinistra o lineare destra.
+\end{itemize}
 
+\textbf{ESEMPIO\_1:} La seguente grammatica per numeri naturali è regolare (più precisamente, lineare destra):
+\begin{align*}
+    &NUMB ::= 0 \mid 1 DIGITSEQ \mid ... \mid 9 DIGITSEQ \\
+    &DIGITSEQ ::= \varepsilon \mid 0 DIGITSEQ \mid ... \mid 9 DIGITSEQ
+\end{align*}
+
+\textbf{ESEMPIO\_2:} Il linguaggio (regolare) $0(10)^*$ è generato dalla seguente grammatica lineare destra:
+\begin{align*}
+    &S ::= 0A \\
+    &A ::= \varepsilon \mid 10A
+\end{align*}
+o, equivalentemente dalla grammatica lineare sinistra:
+\begin{align*}
+    &S ::= 0 \mid S10
+\end{align*}
+Con la prima grammatica, possiamo derivare $0101010$ come segue:
+\begin{align*}
+    &S \Rightarrow 0A \Rightarrow 010A \Rightarrow 01010A \Rightarrow 0101010A \Rightarrow 0101010
+\end{align*}
+
+Con la seconda grammatica, possiamo derivare $0101010$ come segue:
+\begin{align*}
+    &S \Rightarrow S10 \Rightarrow S1010 \Rightarrow S101010 \Rightarrow 0101010
+\end{align*}
+
+\subsection{Linguaggi regolari vs Grammatiche lineari destre}
+
+\paragraph{Teorema 9.1(orale)}
+\label{teorema-9.1}
+\text{}
+\newline
+Se $L$ è regolare, allora è generato da una grammatica lineare destra.
+
+\begin{tcolorbox}[colback=yellow!10!white, colframe=yellow!50!black, title=Dimostrazione]
+    Sia $L = L(M)$ per un DFA $M = (Q,\Sigma,\delta,q_0,F)$.
+
+    Supponiamo per ora che $q_0$ non sia finale.
+
+    Allora, $L = L(G)$, dove $G$ è la grammatica lineare destra ($Q,\Sigma,R,q_0$), dove $R$ include
+    \begin{itemize}
+        \item $q ::= aq'$, se $\delta(q,a) = q'$,
+        \item $q ::= a$, se $\delta(q,a) \in F$,
+    \end{itemize}
+    Per induzione su $|w|$, si può provare che $\delta(q,w) = q'$ se e solo se $q \Rightarrow^* wq'$.
+
+    Se $q_0$ è finale, consideriamo la grammatica $G' = (Q \cup \{S\}, \Sigma, R', S)$ con $S \notin Q$ e $R' = R \cup \{ S ::= \varepsilon | q_0 \}$ dove $R$ è costruito sopra.
+\end{tcolorbox}
+
+\textbf{ESEMPIO:} Si consideri il seguente DFA per il linguaggio $0(10)^*$:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Immagini/114.png}
+    \label{fig:dfa_example} 
+\end{figure}
+
+La grammatica lineare destra per questo DFA è
+\begin{align*}
+    &A ::= 0B \mid 1D \mid 0 \\
+    &B ::= 0D \mid 1C \\
+    &C ::= 0B \mid 1D \mid 0 \\
+    &D ::= 0D \mid 1D \\
+\end{align*}
+Si noti che la variabile $D$ non è realmente necessaria (nell'automa abbiamo bisogno dello stato <<pozzo>> $D$ perchè l'automa è deterministico, e quindi dobbiamo gestire tutti i possibili input, per es. le stringhe che iniziano con un 1)
+
+Quindi, una grammatica più compatta (ed equivalente alla precedente) è 
+\begin{align*}
+    &A ::= 0B \mid 0 \\
+    &B ::= 1C \\
+    &C ::= 0B \mid 0 \\
+\end{align*}
+
+\paragraph{Corollario1(orale)}
+\label{corollario-9.1}
+\text{}
+\newline
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!50!black, title=Dimostrazione]
+    Siccome $L$ è regolare, anche $L^R$ è regolare (per una proprietà di chiusura dei linguaggi regolari).
+
+    Sia $L^R = L(M)$ per un DFA $M$.
+    
+    Per il \hyperref[teorema-9.1]{Teorema 9.1}, esiste una grammatica lineare destra $G$ t.c. $L^R = L(G)$.
+    
+    Ora si considerei $G^R$, la grammatica otenuta da $G$ invertendo le parti destre di tutte le sue produzioni.
+
+    $G^R$ è una grammatica lineare sinistra e $L(G^R) = (L(G))^R = (L^R)^R = L$.
+\end{tcolorbox}
+
+\paragraph{Teorema 9.2(orale)}
+\label{teorema-9.2}
+\text{}
+\newline
+Se $L$ è generato da una grammatica lineare destra, allora $L$ è regolare.
+
+\begin{tcolorbox}[colback=yellow!10!white, colframe=yellow!50!black, title=Dimostrazione]
+    Sia $L = L(G)$, per una qualche grammatica lineare destra $G = (V,\Sigma,R,S)$.
+
+    Costruiamo un NFA con $\varepsilon$-mosse $M = (Q,\Sigma,\delta,q_0,F)$ che simuli derivazioni in $G$:
+    \begin{itemize}
+        \item $Q$ è formato da tutti gli [$\alpha$] tali che $\alpha = S$ o $\alpha$ è un suffisso (non necessariamente proprio) di una qualche parte destra di una regola di $R$
+        \item $q_0 = [S]$
+        \item $F = \{[\varepsilon]\}$
+        \item $\delta$ è definito come segue:
+        \begin{itemize}
+            \item Se $A \in V$, allora $\delta([A],\varepsilon) = \{[\alpha] \mid A ::= \alpha \in R\}$.
+            \item Se $a \in \Sigma$ ed $\alpha \in (\Sigma^* \cup \Sigma^*V)$, allora $\delta([a\alpha],a) = \{[\alpha]\}$.
+        \end{itemize}
+    \end{itemize}
+    Per induzione su $|w|$, si può provare che $[\alpha] \in \delta([S],w)$ se e solo se $S \Rightarrow^* w\alpha$.
+
+    Siccome $[\varepsilon]$ è l'unico stato finale, $M$ accetta $w$ (cioè, $[\varepsilon] \in \delta([S],w)$) sse $S \Rightarrow^* w$.
+\end{tcolorbox}
+
+\textbf{ESEMPIO:} Consideriamo la grammatica lineare destra:
+\begin{align*}
+    &S ::= 0A \\
+    &A ::= \varepsilon \mid 10A
+\end{align*}
+L'automa ad essa associato è:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Immagini/115.png}
+    \label{fig:dfa_example}
+\end{figure}
+E' facile convincersi che il linguaggio accettato è $0(10)^*$.
+
+\newpage
+\subsection{Grammatiche lineari sinistre vs Linguaggi regolari}
+\paragraph{Corollario2(orale)}
+\label{corollario-9.2}
+\text{}
+Se $L$ è generato da una grammatica lineare sinistra, allora $L$ è regolare.
+
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!50!black, title=Dimostrazione]
+    Sia $L = L(G)$, per una qualche grammatica lineare sinistra $G$.
+
+    Si consideri $G^R$, la grammatica lineare destra ottenuta da $G$ invertendo le parti destre di tutte le sue regole.
+    
+    Chiaramente, $L(G^R) = (L(G))^R$.
+
+    Per il \hyperref[teorema-9.2]{Teorema 9.2}, sicoome $G^R$ è lineare destra, $L(G^R)$ è regolare.
+    
+    Siccome i linguaggi regolari sono chiusi rispetto all'operazione di complemento, $L = (L(G^R))^R$ è regolare.
+
+    Ma $(L(G^R))^R = ((L(G))^R)^R = L(G)$, e quindi $L = L(G)$ è regolare.
+\end{tcolorbox}
+
+\subsection{Left- vs Right-linear Grammars}
+\paragraph{Corollario(orale)}
+\label{corollario-9.3}
+\text{}
+$L$ ammette una grammatica lineare destra se e solo se ammette una grammatica lineare sinistra
+\begin{tcolorbox}[colback=blue!10!white, colframe=blue!50!black, title=Dimostrazione]
+    $L = L(G)$, per qualche grammatica lineare destra
+    \begin{itemize}
+        \item SSE $L$ è regolare (\hyperref[teorema-9.1]{Teorema 9.1} + \hyperref[teorema-9.2]{Teorema 9.2})
+        \item SSE $L = L(G),$ per qualche grammatica lineare sinistra (\hyperref[corollario-9.1]{Corollario1} + \hyperref[corollario-9.2]{Corollario2})
+    \end{itemize}
+\end{tcolorbox}
+
+\begin{tcolorbox}[colback=red!10!white, colframe=red!50!black, title=\textbf{OSS}]
+    Questo corollario dà anche un algoritmo per passare da una grammatica lineare sinistra a una lineare destra, e viceversa (tramite automi).
+    
+    (esistono algoritmi che effettuano la trasformazione direttamanete e in maniera più efficiente)    
+\end{tcolorbox}
+
+\subsection*{Accettori di Linguaggi}
+In corrispondenza di ogni tipo di grammatica, esiste una particolare macchina astratta in grado di accettare tutti e soli i linguaggi generati da quel tipo di grammatiche:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\textwidth]{Immagini/116.png}
+    \label{fig:your_image}
+\end{figure}
+
+\subsubsection{Linguaggi non regolari}
 In questa sezione, mostriamo come provare che alcuni linguaggi non possono essere riconosciuti da alcun automa finito.
 
 Consideriamo il linguaggio $B = \{0^{n}1^{n}|n \geq 0\} = \{\varepsilon,01,0011,000111,...\}$. Intuitivamente un DFA che riconosce $B$ dovrebbe ricordare quanti $0$ ha visto fin quando legge l'input, ma non è possibile con un numero finito di stati.
@@ -861,7 +1044,6 @@ se è utile) e, per ogni tale divisione, trovando un valore $i$ tale che $xy^{i}
     \caption{Esempi di applicazione del pumping lemma}
     \label{fig:your_image}
 \end{figure}
-\newpage
 
 \section{Linguaggi context-free}
 
@@ -902,7 +1084,6 @@ $$
 u \Rightarrow u_1 \Rightarrow u_2 \Rightarrow ... \Rightarrow u_k \Rightarrow v.
 $$
 Il \textbf{linguaggio della grammatica} è $\{w \in \Sigma^{*} \mid S \Rightarrow^* w\}$, cioè l'insieme di tutte le stringhe che possono essere derivate dalla variabile iniziale.
-\newpage
 
 \textbf{Esempi di grammatiche context-free}
 
@@ -963,6 +1144,7 @@ Una derivazione di una stringa $w$ in una grammatica $G$ è una \textbf{derivazi
     Una stringa $w$ è derivata \textbf{ambiguamente} in una grammatica context-free $G$ se essa ha due o più diverse derivazioni a sinistra. Una grammatica $G$ è \textbf{ambigua} se essa genera qualche stringa ambiguamente.
 \end{tcolorbox}
 
+\newpage
 \paragraph{Forma normale di Chomsky}
 \label{Forma normale di Chomsky}
 \text{ }
@@ -1098,7 +1280,6 @@ Mostreremo come trasformare ogni grammatica context-free in automa a pila che ri
 Ricordiamo che abbiamo definito un linguaggio context-free come un linguaggio che può essere descritto con una grammatica context-free.
 Quindi il nostro obiettivo è il teorema seguente.
 
-\newpage
 \paragraph{Teorema 2.20}
 \label{teorema-2.20}
 \text{ }
@@ -1106,8 +1287,8 @@ Quindi il nostro obiettivo è il teorema seguente.
 \begin{tcolorbox}[colback=yellow!10!white, colframe=yellow!50!black, title=Teorema 2.20]
     Un linguaggio è context-free se e solo se qualche automa a pila lo riconosce.
 \end{tcolorbox}
-\vspace{1em}
 
+\newpage
 \paragraph{Lemma 2.21(orale)}
 \text{ }
 
@@ -1546,190 +1727,6 @@ In base alla forma delle regole della grammatica, possiamo distinguere i seguent
 \end{tcolorbox}
 
 \newpage
-\subsubsection{Grammatiche Regolari}
-Una grammatica $G = (V,\Sigma,R,S)$ è detta
-\begin{itemize}
-    \item \textbf{\textit{Lineare sinistra}} se, per ogni ($\alpha,\beta$) $\in R$, si ha che $\alpha \in V$ e $\beta \in (\Sigma^* \cup V\Sigma^*)$. 
-    \item \textbf{\textit{Lineare destra}} se, per ogni ($\alpha,\beta$) $\in R$, si ha che $\alpha \in V$ e $\beta \in (\Sigma^* \cup \Sigma^* V)$.
-    \item \textbf{\textit{Regolare}} se è lineare sinistra o lineare destra.
-\end{itemize}
-
-\textbf{ESEMPIO\_1:} La seguente grammatica per numeri naturali è regolare (più precisamente, lineare destra):
-\begin{align*}
-    &NUMB ::= 0 \mid 1 DIGITSEQ \mid ... \mid 9 DIGITSEQ \\
-    &DIGITSEQ ::= \varepsilon \mid 0 DIGITSEQ \mid ... \mid 9 DIGITSEQ
-\end{align*}
-
-\textbf{ESEMPIO\_2:} Il linguaggio (regolare) $0(10)^*$ è generato dalla seguente grammatica lineare destra:
-\begin{align*}
-    &S ::= 0A \\
-    &A ::= \varepsilon \mid 10A
-\end{align*}
-o, equivalentemente dalla grammatica lineare sinistra:
-\begin{align*}
-    &S ::= 0 \mid S10
-\end{align*}
-Con la prima grammatica, possiamo derivare $0101010$ come segue:
-\begin{align*}
-    &S \Rightarrow 0A \Rightarrow 010A \Rightarrow 01010A \Rightarrow 0101010A \Rightarrow 0101010
-\end{align*}
-
-Con la seconda grammatica, possiamo derivare $0101010$ come segue:
-\begin{align*}
-    &S \Rightarrow S10 \Rightarrow S1010 \Rightarrow S101010 \Rightarrow 0101010
-\end{align*}
-
-\subsection{Linguaggi regolari vs Grammatiche lineari destre}
-
-\paragraph{Teorema 9.1(orale)}
-\label{teorema-9.1}
-\text{}
-\newline
-Se $L$ è regolare, allora è generato da una grammatica lineare destra.
-
-\begin{tcolorbox}[colback=yellow!10!white, colframe=yellow!50!black, title=Dimostrazione]
-    Sia $L = L(M)$ per un DFA $M = (Q,\Sigma,\delta,q_0,F)$.
-
-    Supponiamo per ora che $q_0$ non sia finale.
-
-    Allora, $L = L(G)$, dove $G$ è la grammatica lineare destra ($Q,\Sigma,R,q_0$), dove $R$ include
-    \begin{itemize}
-        \item $q ::= aq'$, se $\delta(q,a) = q'$,
-        \item $q ::= a$, se $\delta(q,a) \in F$,
-    \end{itemize}
-    Per induzione su $|w|$, si può provare che $\delta(q,w) = q'$ se e solo se $q \Rightarrow^* wq'$.
-
-    Se $q_0$ è finale, consideriamo la grammatica $G' = (Q \cup \{S\}, \Sigma, R', S)$ con $S \notin Q$ e $R' = R \cup \{ S ::= \varepsilon | q_0 \}$ dove $R$ è costruito sopra.
-\end{tcolorbox}
-
-\textbf{ESEMPIO:} Si consideri il seguente DFA per il linguaggio $0(10)^*$:
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.3\textwidth]{Immagini/114.png}
-    \label{fig:dfa_example} 
-\end{figure}
-
-La grammatica lineare destra per questo DFA è
-\begin{align*}
-    &A ::= 0B \mid 1D \mid 0 \\
-    &B ::= 0D \mid 1C \\
-    &C ::= 0B \mid 1D \mid 0 \\
-    &D ::= 0D \mid 1D \\
-\end{align*}
-Si noti che la variabile $D$ non è realmente necessaria (nell'automa abbiamo bisogno dello stato <<pozzo>> $D$ perchè l'automa è deterministico, e quindi dobbiamo gestire tutti i possibili input, per es. le stringhe che iniziano con un 1)
-
-Quindi, una grammatica più compatta (ed equivalente alla precedente) è 
-\begin{align*}
-    &A ::= 0B \mid 0 \\
-    &B ::= 1C \\
-    &C ::= 0B \mid 0 \\
-\end{align*}
-
-\paragraph{Corollario1(orale)}
-\label{corollario-9.1}
-\text{}
-\newline
-\begin{tcolorbox}[colback=blue!10!white, colframe=blue!50!black, title=Dimostrazione]
-    Siccome $L$ è regolare, anche $L^R$ è regolare (per una proprietà di chiusura dei linguaggi regolari).
-
-    Sia $L^R = L(M)$ per un DFA $M$.
-    
-    Per il \hyperref[teorema-9.1]{Teorema 9.1}, esiste una grammatica lineare destra $G$ t.c. $L^R = L(G)$.
-    
-    Ora si considerei $G^R$, la grammatica otenuta da $G$ invertendo le parti destre di tutte le sue produzioni.
-
-    $G^R$ è una grammatica lineare sinistra e $L(G^R) = (L(G))^R = (L^R)^R = L$.
-\end{tcolorbox}
-
-\paragraph{Teorema 9.2(orale)}
-\label{teorema-9.2}
-\text{}
-\newline
-Se $L$ è generato da una grammatica lineare destra, allora $L$ è regolare.
-
-\begin{tcolorbox}[colback=yellow!10!white, colframe=yellow!50!black, title=Dimostrazione]
-    Sia $L = L(G)$, per una qualche grammatica lineare destra $G = (V,\Sigma,R,S)$.
-
-    Costruiamo un NFA con $\varepsilon$-mosse $M = (Q,\Sigma,\delta,q_0,F)$ che simuli derivazioni in $G$:
-    \begin{itemize}
-        \item $Q$ è formato da tutti gli [$\alpha$] tali che $\alpha = S$ o $\alpha$ è un suffisso (non necessariamente proprio) di una qualche parte destra di una regola di $R$
-        \item $q_0 = [S]$
-        \item $F = \{[\varepsilon]\}$
-        \item $\delta$ è definito come segue:
-        \begin{itemize}
-            \item Se $A \in V$, allora $\delta([A],\varepsilon) = \{[\alpha] \mid A ::= \alpha \in R\}$.
-            \item Se $a \in \Sigma$ ed $\alpha \in (\Sigma^* \cup \Sigma^*V)$, allora $\delta([a\alpha],a) = \{[\alpha]\}$.
-        \end{itemize}
-    \end{itemize}
-    Per induzione su $|w|$, si può provare che $[\alpha] \in \delta([S],w)$ se e solo se $S \Rightarrow^* w\alpha$.
-
-    Siccome $[\varepsilon]$ è l'unico stato finale, $M$ accetta $w$ (cioè, $[\varepsilon] \in \delta([S],w)$) sse $S \Rightarrow^* w$.
-\end{tcolorbox}
-
-\textbf{ESEMPIO:} Consideriamo la grammatica lineare destra:
-\begin{align*}
-    &S ::= 0A \\
-    &A ::= \varepsilon \mid 10A
-\end{align*}
-L'automa ad essa associato è:
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.3\textwidth]{Immagini/115.png}
-    \label{fig:dfa_example}
-\end{figure}
-E' facile convincersi che il linguaggio accettato è $0(10)^*$.
-
-\subsection{Grammatiche lineari sinistre vs Linguaggi regolari}
-\paragraph{Corollario2(orale)}
-\label{corollario-9.2}
-\text{}
-Se $L$ è generato da una grammatica lineare sinistra, allora $L$ è regolare.
-
-\begin{tcolorbox}[colback=blue!10!white, colframe=blue!50!black, title=Dimostrazione]
-    Sia $L = L(G)$, per una qualche grammatica lineare sinistra $G$.
-
-    Si consideri $G^R$, la grammatica lineare destra ottenuta da $G$ invertendo le parti destre di tutte le sue regole.
-    
-    Chiaramente, $L(G^R) = (L(G))^R$.
-
-    Per il \hyperref[teorema-9.2]{Teorema 9.2}, sicoome $G^R$ è lineare destra, $L(G^R)$ è regolare.
-    
-    Siccome i linguaggi regolari sono chiusi rispetto all'operazione di complemento, $L = (L(G^R))^R$ è regolare.
-
-    Ma $(L(G^R))^R = ((L(G))^R)^R = L(G)$, e quindi $L = L(G)$ è regolare.
-\end{tcolorbox}
-
-\subsection{Left- vs Right-linear Grammars}
-\paragraph{Corollario(orale)}
-\label{corollario-9.3}
-\text{}
-$L$ ammette una grammatica lineare destra se e solo se ammette una grammatica lineare sinistra
-\begin{tcolorbox}[colback=blue!10!white, colframe=blue!50!black, title=Dimostrazione]
-    $L = L(G)$, per qualche grammatica lineare destra
-    \begin{itemize}
-        \item SSE $L$ è regolare (\hyperref[teorema-9.1]{Teorema 9.1} + \hyperref[teorema-9.2]{Teorema 9.2})
-        \item SSE $L = L(G),$ per qualche grammatica lineare sinistra (\hyperref[corollario-9.1]{Corollario1} + \hyperref[corollario-9.2]{Corollario2})
-    \end{itemize}
-\end{tcolorbox}
-
-\begin{tcolorbox}[colback=red!10!white, colframe=red!50!black, title=\textbf{OSS}]
-    Questo corollario dà anche un algoritmo per passare da una grammatica lineare sinistra a una lineare destra, e viceversa (tramite automi).
-    
-    (esistono algoritmi che effettuano la trasformazione direttamanete e in maniera più efficiente)    
-\end{tcolorbox}
-
-\subsection*{Accettori di Linguaggi}
-In corrispondenza di ogni tipo di grammatica, esiste una particolare macchina astratta in grado di accettare tutti e soli i linguaggi generati da quel tipo di grammatiche:
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.3\textwidth]{Immagini/116.png}
-    \label{fig:your_image}
-\end{figure}
-
-\clearpage
 \section{La Tesi di Church-Turing}
 \subsection{Macchine di Turing}
 Introduciamo ora un modello molto più potente, proposto inizialmente da Alan Turing nel 1936, chamato \textbf{macchina di Turing}.
