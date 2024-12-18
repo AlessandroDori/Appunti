@@ -1,0 +1,72 @@
+Domande orale automi:
+
+1. Definizione DFA e i linguaggi che accetta (
+											  w = w1w2...wn
+											  r1...rn+1
+											  r1 = q0
+											  rm+1 \in F
+											  ri+1 = \delta(ri,wi+1)
+											  )
+
+2. (How do you) Polinomial reduction clique to vertex cover? (Teorema 34.12)
+
+3. How do you decide emptyness of CFL? (generosa come domanda) si dimostra con E_CFL(grammatica)
+Cosa significa marcare un simbolo?
+
+
+Orale 2:
+1. Regular expression (definition pag 13), linguaggio delle espressioni regolari?(Lemma 1.55)
+
+2. Pumping lemma for regular language
+
+3. SAT to 3CNF (Teorema 34.10 (24-30))
+
+
+Orale 3:
+1. Definizione di una grammatica e del linguaggio che accetta. (Definizione 2.35)
+	
+	R \subseteq (V \cup \Sigma)^+ \times (V \cup \Sigma)^*
+
+	- (\alpha,\beta) \in R
+	- a\alphab \Rightarrow a\betab   a,b \in (\Sigma \cup V)^*
+	- S \Rightarrow S_i \Rightarrow ... \Rightarrow w
+	- S \Rightarrow^* w
+
+2. Come provi l'esistenza di un linguaggio non RE (ricorsivamente enumerabile) (Teorema 4.22, A_tm)
+
+3. Approximate VERTEX-COVER (Teorema 35.1)
+
+
+Orale 4:
+1. PDA e il linguaggio che accetta (pag 28)
+
+2. Indecidibilità dell'HALT_TM (Teorema 5.1)
+
+3. 3CNF-SAT to CLIQUE (Teorema 34.11(24-30))
+
+
+Orale 5:
+1. Definizione di enumeratore ed uguaglianza con TM (pag 48, teorema 3.21 entrambe le direzioni)
+
+2. CFG to PDA (lemma 2.21)
+
+3. Approximability of TSP(Travelling salesman) non lo facciamo
+
+
+Orale 6:
+1. Definizione di TM (single tape Definizione 3.3, multi tape (pag 45) e NTM (pag 46))
+	configurazione iniziale
+	configurazione accettante
+
+2. Decidability for CSL (non la facciamo) A_LBA
+
+3. Polinomial reduction HAM-CYCLE to TSP (non lo facciamo)
+
+
+Orale 7:
+1. Define P (Definizione 7.7, 7.9, 7.12), NP(Definizione 7.19, 7.20, 7.21, 7.22), P \in NP
+	(Definizione 7.18)
+
+2. NFA(1.37) to DFA (teorema 1.39)
+
+3. TSP (non lo facciamo)
