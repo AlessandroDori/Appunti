@@ -1546,6 +1546,8 @@ Nel primo caso, consideriamo la parte $y$ di $x$ che $A_{rs}$ genera, quindi $x 
 Poichè $A_{rs} \Rightarrow^{*} y$, in $k$ passi, l'ipotesi induttiva ci dice che $P$ può andare da $r$ con la pila vuota a $s$ con la pila vuota.
 Poichè $A_{pq} \rightarrow aA_{rs}b$ è una regola di $G, \delta(p,a,\varepsilon)$ contiene $(r,u)$ e $\delta(s,b,u)$ contiene $(q,\varepsilon)$, per qualche simbolo di pila $u$.
 Quindi, se $P$ inizia in $p$ con la pila vuota, dopo aver letto $a$ può andare nello stato $r$ e inserire $u$ in cima alla pila.
+Poi, la lettura della stringa $y$ può portarlo in $s$ e lasciare $u$ sulla pila.
+In seguito dopo aver letto $b$, $P$ può andare da $s$ a $q$ e rimuovere $u$ dalla pila.
 Pertanto, $x$ può portare $P$ da $p$ con la pila vuota a $q$ con la pila vuota.
 
 Nel secondo caso, consideriamo le parti $y$ e $z$ di $x$ che $A_{pr}$ e $A_{rq}$ generano, rispettivamente, quindi $x = yz$.
@@ -4348,7 +4350,7 @@ Se un linguaggio $B$ è NP-completo e $B \in P$, allora $P = NP$.
 \textbf{DIMOSTRAZIONE.}
 Il teorema discende direttamente dal Teorema \hyperref[teorema-7.31]{\textcolor{blue}{Teorema 7.31}}.
 
-\paragraph{Teorema 7.36}
+\paragraph{Teorema 7.36(orale)}
 \label{teorema-7.36}
 \vspace{1em}
 \text{}
